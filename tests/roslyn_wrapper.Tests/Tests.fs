@@ -1,6 +1,6 @@
-﻿module FSharp.ProjectScaffold.Tests
+module roslyn_wrapper.Tests
 
-open FSharp.ProjectTemplate
+open roslyn_wrapper
 open NUnit.Framework
 
 [<Test>]

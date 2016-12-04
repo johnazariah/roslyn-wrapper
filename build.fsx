@@ -28,24 +28,24 @@ open SourceLink
 
 // The name of the project
 // (used by attributes in AssemblyInfo, name of a NuGet package and directory in 'src')
-let project = "##ProjectName##"
+let project = "roslyn_wrapper"
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
-let summary = "##Summary##"
+let summary = "F# wrapper for Roslyn CodeGeneration API"
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = "##Description##"
+let description = "F# wrapper for Roslyn CodeGeneration API"
 
 // List of author names (for NuGet package)
-let authors = [ "##Author##" ]
+let authors = [ "John Azariah" ]
 
 // Tags for your project (for NuGet package)
-let tags = "##Tags##"
+let tags = "roslyn F# code-generation"
 
 // File system information
-let solutionFile  = "##ProjectName##.sln"
+let solutionFile  = "roslyn_wrapper.sln"
 
 // Default target configuration
 let configuration = "Release"
@@ -55,14 +55,14 @@ let testAssemblies = "tests/**/bin" </> configuration </> "*Tests*.dll"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
-let gitOwner = "##GitHome##"
-let gitHome = sprintf "%s/%s" "##GitUrl##" gitOwner
+let gitOwner = "johnazariah"
+let gitHome = sprintf "%s/%s" "https://github.com" gitOwner
 
 // The name of the project on GitHub
-let gitName = "##GitName##"
+let gitName = "roslyn-wrapper"
 
 // The url for the raw files hosted
-let gitRaw = environVarOrDefault "gitRaw" "##GitRawUrl##/##GitHome##"
+let gitRaw = environVarOrDefault "gitRaw" "https://raw.githubusercontent.com/johnazariah"
 
 // --------------------------------------------------------------------------------------
 // END TODO: The rest of the file includes standard build steps

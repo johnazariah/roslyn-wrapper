@@ -1,4 +1,4 @@
-﻿namespace FSharp.ProjectTemplate
+namespace roslyn_wrapper
 
 /// Documentation for my library
 ///
