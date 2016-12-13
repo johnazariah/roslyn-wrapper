@@ -1,6 +1,6 @@
 type project
 title
-    roslyn_wrapper
+    BrightSword.RoslynWrapper
 owners
     John Azariah
 authors 

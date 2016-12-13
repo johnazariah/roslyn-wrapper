@@ -9,19 +9,19 @@
 // for binaries output to root bin folder please add the filename only to the 
 // referenceBinaries list below in order to generate documentation for the binaries.
 // (This is the original behaviour of ProjectScaffold prior to multi project support)
-let referenceBinaries = []
+let referenceBinaries = [ "BrightSword.RoslynWrapper.dll" ]
 // Web site location for the generated documentation
-let website = "/roslyn_wrapper"
+let website = "/roslyn-wrapper"
 
 let githubLink = "https://github.com/johnazariah/roslyn-wrapper"
 
 // Specify more information about your project
 let info =
-  [ "project-name", "roslyn_wrapper"
+  [ "project-name", "BrightSword.RoslynWrapper"
     "project-author", "John Azariah"
     "project-summary", "F# wrapper for Roslyn CodeGeneration API"
     "project-github", githubLink
-    "project-nuget", "http://nuget.org/packages/roslyn_wrapper" ]
+    "project-nuget", "http://nuget.org/packages/BrightSword.RoslynWrapper" ]
 
 // --------------------------------------------------------------------------------------
 // For typical project, no changes are needed below

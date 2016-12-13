@@ -10,10 +10,9 @@ Introducing your project
 Say more
 
 *)
-#r "roslyn_wrapper.dll"
-open roslyn_wrapper
+#r "BrightSword.RoslynWrapper.dll"
+open BrightSword.RoslynWrapper
 
-Library.hello 0
 (**
 Some more info
 *)

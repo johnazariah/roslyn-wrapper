@@ -1,6 +1,11 @@
 source https://nuget.org/api/v2
 
 nuget FSharp.Core redirects: force
+nuget Microsoft.CodeAnalysis.Analyzers
+nuget Microsoft.CodeAnalysis.Common
+nuget Microsoft.CodeAnalysis.CSharp
+nuget Microsoft.CodeAnalysis.CSharp.Workspaces
+nuget Microsoft.CodeAnalysis.Workspaces.Common
 
 group Build
   source https://nuget.org/api/v2
@@ -8,7 +13,7 @@ group Build
   nuget SourceLink.Fake
   nuget FAKE
   nuget FSharp.Formatting
-
+  
   github fsharp/FAKE modules/Octokit/Octokit.fsx
 
 group Test

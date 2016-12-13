@@ -28,7 +28,7 @@ open SourceLink
 
 // The name of the project
 // (used by attributes in AssemblyInfo, name of a NuGet package and directory in 'src')
-let project = "roslyn_wrapper"
+let project = "BrightSword.RoslynWrapper"
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
@@ -45,7 +45,7 @@ let authors = [ "John Azariah" ]
 let tags = "roslyn F# code-generation"
 
 // File system information
-let solutionFile  = "roslyn_wrapper.sln"
+let solutionFile  = "BrightSword.RoslynWrapper.sln"
 
 // Default target configuration
 let configuration = "Release"
