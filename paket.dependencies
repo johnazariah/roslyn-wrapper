@@ -1,11 +1,11 @@
 source https://nuget.org/api/v2
 
 nuget FSharp.Core redirects: force
-nuget Microsoft.CodeAnalysis.Analyzers
-nuget Microsoft.CodeAnalysis.Common
-nuget Microsoft.CodeAnalysis.CSharp
-nuget Microsoft.CodeAnalysis.CSharp.Workspaces
-nuget Microsoft.CodeAnalysis.Workspaces.Common
+nuget Microsoft.CodeAnalysis.Analyzers redirects: force
+nuget Microsoft.CodeAnalysis.Common redirects: force
+nuget Microsoft.CodeAnalysis.CSharp redirects: force
+nuget Microsoft.CodeAnalysis.CSharp.Workspaces redirects: force
+nuget Microsoft.CodeAnalysis.Workspaces.Common redirects: force
 
 group Build
   source https://nuget.org/api/v2
