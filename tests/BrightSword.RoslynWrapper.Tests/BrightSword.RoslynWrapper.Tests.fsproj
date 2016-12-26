@@ -73,6 +73,7 @@
     <Compile Include="AutoPropertyTests.fs" />
     <Compile Include="FieldTests.fs" />
     <Compile Include="ConversionOperatorTests.fs" />
+    <Compile Include="StatementTests.fs" />
     <None Include="paket.references" />
     <Content Include="App.config" />
   </ItemGroup>

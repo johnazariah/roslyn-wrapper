@@ -13,7 +13,7 @@ module ObjectCreation =
 
     let private setArguments arguments (oce : ObjectCreationExpressionSyntax) = 
         arguments 
-        |> Seq.map (toIdentifierName >> SF.Argument) 
+        |> Seq.map (SF.Argument) 
         |> (SF.SeparatedList >> SF.ArgumentList)
         |> oce.WithArgumentList
             

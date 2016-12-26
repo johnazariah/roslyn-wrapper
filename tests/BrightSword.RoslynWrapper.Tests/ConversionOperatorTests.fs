@@ -47,7 +47,7 @@ module ConversionOperatorTests =
     let ``conversion operator: explicit`` () =
         let m = 
             ``explicit operator`` "string" ``(`` "C" ``)`` 
-                (``=>`` (``invoke`` ("value.ToString" |> toIdentifierName) ``(`` [] ``)``))
+                (``=>`` (``invoke`` (toIdentifierName "value.ToString") ``(`` [] ``)``))
 
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -67,7 +67,7 @@ module ConversionOperatorTests =
     let ``conversion operator: explicit from-string`` () =
         let m = 
             ``explicit operator`` "C" ``(`` "string" ``)`` 
-                (``=>`` (``new`` ["C"] ``(`` ["value"] ``)``))
+                (``=>`` (``new`` ["C"] ``(`` [ toIdentifierName "value"] ``)``))
 
         let actual = to_class_members_code [m]
         let expected = @"namespace N
