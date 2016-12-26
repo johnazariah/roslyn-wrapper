@@ -12,7 +12,9 @@ module Conversion =
     type SF = SyntaxFactory
     
     let private setModifiers modifiers (co : ConversionOperatorDeclarationSyntax) =
-        modifiers 
+        modifiers
+        |> Set.ofSeq
+        |> (fun s -> s.Add ``static``) 
         |> Seq.map SF.Token
         |> SF.TokenList 
         |> co.WithModifiers
@@ -21,7 +23,7 @@ module Conversion =
         SyntaxKind.SemicolonToken |> SF.Token 
         |> co.WithSemicolonToken
 
-    let ``explicit operator`` target ``(`` source ``)`` ``=>`` initializer =
+    let ``explicit operator`` target ``(`` source ``)`` initializer =
         (SyntaxKind.ExplicitKeyword |> SF.Token, target |> toIdentifierName)
         |> SF.ConversionOperatorDeclaration
         |> (fun co -> co.WithParameterList <| toParameterList [ ("value", source) ])
@@ -29,7 +31,7 @@ module Conversion =
         |> (fun co -> co.WithExpressionBody initializer)
         |> addClosingSemicolon
 
-    let ``implicit operator`` target ``(`` source ``)`` modifiers ``=>`` initializer =
+    let ``implicit operator`` target ``(`` source ``)`` modifiers initializer =
         (SyntaxKind.ImplicitKeyword |> SF.Token, target |> toIdentifierName)
         |> SF.ConversionOperatorDeclaration
         |> (fun co -> co.WithParameterList <| toParameterList [ ("value", source) ])
