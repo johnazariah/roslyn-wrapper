@@ -16,21 +16,12 @@ module internal Common =
         let cu = ``compilation unit`` [ n ]
         generateCodeToString cu
         
-    let to_class_code c = 
+    let to_namespace_member_code c = 
         let ns = 
             ``namespace`` "N" 
                 ``{``
                     []
                     [ c ]
-                ``}``
-        in to_namespace_code ns
-        
-    let to_interface_code i = 
-        let ns = 
-            ``namespace`` "N" 
-                ``{``
-                    []
-                    [ i ]
                 ``}``
         in to_namespace_code ns
     
@@ -42,4 +33,14 @@ module internal Common =
                 ``{``
                     ms
                 ``}``
-         in to_class_code c
+         in to_namespace_member_code c
+
+    let to_interface_members_code ms = 
+        let c = 
+            ``interface`` "I" ``<<`` [] ``>>``
+                ``:`` []
+                [``public``]
+                ``{``
+                    ms
+                ``}``
+         in to_namespace_member_code c

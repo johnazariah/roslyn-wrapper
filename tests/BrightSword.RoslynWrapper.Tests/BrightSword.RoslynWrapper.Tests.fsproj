@@ -69,6 +69,7 @@
     <Compile Include="ClassTests.fs" />
     <Compile Include="InterfaceTests.fs" />
     <Compile Include="ConstructorTests.fs" />
+    <Compile Include="MethodTests.fs" />
     <None Include="paket.references" />
     <Content Include="App.config" />
   </ItemGroup>

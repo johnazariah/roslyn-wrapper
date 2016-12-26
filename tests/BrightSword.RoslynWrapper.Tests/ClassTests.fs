@@ -14,7 +14,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -34,7 +34,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -55,7 +55,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -75,7 +75,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -95,7 +95,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -115,7 +115,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -135,7 +135,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -155,7 +155,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -175,7 +175,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -195,7 +195,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;
@@ -215,7 +215,7 @@ module ClassTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_class_code c
+        let actual = to_namespace_member_code c
         let expected = @"namespace N
 {
     using System;

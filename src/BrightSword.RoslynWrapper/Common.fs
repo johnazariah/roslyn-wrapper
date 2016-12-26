@@ -54,7 +54,7 @@ module Common =
     let ``:=`` expression = expression |> SF.EqualsValueClause 
     let ``=>`` expression = expression |> SF.ArrowExpressionClause    
     let ``await`` expression = expression |> SF.AwaitExpression
-    let ``return`` expression = expression |> SF.ReturnStatement
+    let ``return`` eOpt = eOpt |> Option.fold(fun _ e -> SF.ReturnStatement(e)) (SF.ReturnStatement ())
 
     let ``param`` paramName ``of`` paramType =
         paramName 

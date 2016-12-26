@@ -14,7 +14,7 @@ module InterfaceTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_interface_code i
+        let actual = to_namespace_member_code i
         let expected = @"namespace N
 {
     using System;
@@ -34,7 +34,7 @@ module InterfaceTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_interface_code i
+        let actual = to_namespace_member_code i
         let expected = @"namespace N
 {
     using System;
@@ -54,7 +54,7 @@ module InterfaceTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_interface_code i
+        let actual = to_namespace_member_code i
         let expected = @"namespace N
 {
     using System;
@@ -74,7 +74,7 @@ module InterfaceTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_interface_code i
+        let actual = to_namespace_member_code i
         let expected = @"namespace N
 {
     using System;
@@ -94,7 +94,7 @@ module InterfaceTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_interface_code i
+        let actual = to_namespace_member_code i
         let expected = @"namespace N
 {
     using System;
@@ -114,7 +114,7 @@ module InterfaceTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_interface_code i
+        let actual = to_namespace_member_code i
         let expected = @"namespace N
 {
     using System;
@@ -134,7 +134,7 @@ module InterfaceTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_interface_code i
+        let actual = to_namespace_member_code i
         let expected = @"namespace N
 {
     using System;
@@ -154,7 +154,7 @@ module InterfaceTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_interface_code i
+        let actual = to_namespace_member_code i
         let expected = @"namespace N
 {
     using System;
@@ -174,7 +174,7 @@ module InterfaceTests =
                 ``{``
                     []
                 ``}``
-        let actual = to_interface_code i
+        let actual = to_namespace_member_code i
         let expected = @"namespace N
 {
     using System;
