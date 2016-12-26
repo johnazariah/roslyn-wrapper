@@ -70,6 +70,7 @@
     <Compile Include="InterfaceTests.fs" />
     <Compile Include="ConstructorTests.fs" />
     <Compile Include="MethodTests.fs" />
+    <Compile Include="AutoPropertyTests.fs" />
     <None Include="paket.references" />
     <Content Include="App.config" />
   </ItemGroup>
