@@ -27,7 +27,7 @@ module FieldDeclaration =
         |> SF.TokenList 
         |> fd.WithModifiers
 
-    let ``field`` fieldType fieldName modifiers ``=>`` fieldInitializer = 
+    let ``field`` fieldType fieldName modifiers fieldInitializer = 
         fieldType 
         |> (toIdentifierName >> SF.VariableDeclaration)
         |> setFieldVariable fieldName fieldInitializer 

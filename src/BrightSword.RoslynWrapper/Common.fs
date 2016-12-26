@@ -32,6 +32,7 @@ module Common =
     let ``of`` = None
 
     let toIdentifierName = SF.Identifier >> SF.IdentifierName
+    let literalString (s : string) = SF.LiteralExpression (SyntaxKind.StringLiteralExpression, (SF.Literal s))
     
     let (?+) option list =
         option |> Option.fold (fun l o -> o :: l) list

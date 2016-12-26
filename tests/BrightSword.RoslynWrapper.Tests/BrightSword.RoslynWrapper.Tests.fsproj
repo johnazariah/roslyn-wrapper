@@ -71,6 +71,7 @@
     <Compile Include="ConstructorTests.fs" />
     <Compile Include="MethodTests.fs" />
     <Compile Include="AutoPropertyTests.fs" />
+    <Compile Include="FieldTests.fs" />
     <None Include="paket.references" />
     <Content Include="App.config" />
   </ItemGroup>
