@@ -74,6 +74,7 @@
     <Compile Include="FieldTests.fs" />
     <Compile Include="ConversionOperatorTests.fs" />
     <Compile Include="StatementTests.fs" />
+    <Compile Include="MiscellaneousTests.fs" />
     <None Include="paket.references" />
     <Content Include="App.config" />
   </ItemGroup>

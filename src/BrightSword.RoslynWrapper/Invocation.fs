@@ -16,7 +16,7 @@ module Invocation =
         |> (SF.SeparatedList >> SF.ArgumentList)
         |> ie.WithArgumentList
         
-    let ``invoke`` m ``(`` methodArguments ``)`` =
+    let ``invoke`` m ``(`` args ``)`` =
         m
         |> SF.InvocationExpression
-        |> setArguments methodArguments
+        |> setArguments (args |> Seq.map SF.Argument)

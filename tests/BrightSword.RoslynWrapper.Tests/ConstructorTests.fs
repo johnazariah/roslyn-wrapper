@@ -32,7 +32,7 @@ module ConstructorTests =
     [<Test>]
     let ``constructor: with parameter``() =
         let m = 
-            ``constructor`` "C" ``(`` [ ("thing", "object") ] ``)`` 
+            ``constructor`` "C" ``(`` [ ("thing", (``type`` "object")) ] ``)`` 
                 ``:`` []
                 [``public``]
                 ``{``
@@ -56,7 +56,7 @@ module ConstructorTests =
     [<Test>]
     let ``constructor: with parameter 2``() =
         let m = 
-            ``constructor`` "C" ``(`` [ ("thing", "object"); ("name", "string") ] ``)`` 
+            ``constructor`` "C" ``(`` [ ("thing", (``type`` "object")); ("name", (``type`` "string")) ] ``)`` 
                 ``:`` []
                 [``public``]
                 ``{``
@@ -80,7 +80,7 @@ module ConstructorTests =
     [<Test>]
     let ``constructor: calling base constructor``() =
         let m = 
-            ``constructor`` "C" ``(`` [ ("thing", "object") ] ``)`` 
+            ``constructor`` "C" ``(`` [ ("thing", (``type`` "object")) ] ``)`` 
                 ``:`` [ "thing" ]
                 [``public``]
                 ``{``
@@ -104,7 +104,7 @@ module ConstructorTests =
     [<Test>]
     let ``constructor: calling base constructor 2``() =
         let m = 
-            ``constructor`` "C" ``(`` [ ("thing", "object"); ("name", "string") ] ``)`` 
+            ``constructor`` "C" ``(`` [ ("thing", (``type`` "object")); ("name", (``type`` "string")) ] ``)`` 
                 ``:`` [ "thing"; "name" ]
                 [``public``]
                 ``{``

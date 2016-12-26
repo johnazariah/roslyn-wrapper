@@ -26,7 +26,7 @@ module FieldTests =
 
     [<Test>]
     let ``field: initialized`` () =
-        let e = ``:=`` <| literalString "John"
+        let e = ``:=`` <| literal "John"
         let m = 
             ``field`` "string" "m_Name" 
                 [ ``private`` ] 

@@ -65,7 +65,7 @@ module MethodTests =
     [<Test>]
     let ``arrow method: with parameter``() =
         let m = 
-            ``arrow_method`` "void" "M" ``<<`` ["T"] ``>>`` ``(`` [ ("thing", "object") ] ``)`` 
+            ``arrow_method`` "void" "M" ``<<`` ["T"] ``>>`` ``(`` [ ("thing", (``type`` "object")) ] ``)`` 
                 [``public``; ``abstract``]
                 None
 
@@ -83,9 +83,9 @@ module MethodTests =
 
     [<Test>]
     let ``arrow method: with expression``() =
-        let e = ``=>`` ("thing" |> toIdentifierName)
+        let e = ``=>`` ("thing" |> ident)
         let m = 
-            ``arrow_method`` "object" "M" ``<<`` ["T"] ``>>`` ``(`` [ ("thing", "object") ] ``)`` 
+            ``arrow_method`` "object" "M" ``<<`` ["T"] ``>>`` ``(`` [ ("thing", (``type`` "object")) ] ``)`` 
                 [``public``; ``virtual``]
                 (Some e)
 
@@ -104,7 +104,7 @@ module MethodTests =
     [<Test>]
     let ``method: with body``() =
         let m = 
-            ``method`` "void" "M" ``<<`` ["T"] ``>>`` ``(`` [ ("thing", "object") ] ``)`` 
+            ``method`` "void" "M" ``<<`` ["T"] ``>>`` ``(`` [ ("thing", (``type`` "object")) ] ``)`` 
                 [``private``; ``static``]
                 ``{``
                     [

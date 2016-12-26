@@ -44,3 +44,16 @@ module internal Common =
                     ms
                 ``}``
          in to_namespace_member_code c
+
+    let host_in_method t ss = 
+        ``method`` t "Host" ``<<`` [] ``>>`` ``(`` [] ``)``
+            [``protected``; ``internal`` ]
+            ``{``
+                ss
+            ``}``
+
+    let return_from_arrow_method t s = 
+        ``arrow_method`` t "Host" ``<<`` [] ``>>`` ``(`` [] ``)``
+            [``protected``; ``internal`` ]
+            (Some <| ``=>`` s)
+

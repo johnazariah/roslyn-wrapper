@@ -60,7 +60,10 @@
   -->
   <Import Project="..\..\.paket\paket.targets" />
   <ItemGroup>
+    <Compile Include="WhiteNoise.fs" />
     <Compile Include="Common.fs" />
+    <Compile Include="Literals.fs" />
+    <Compile Include="ExpressionStatement.fs" />
     <Compile Include="GenericName.fs" />
     <Compile Include="ObjectCreation.fs" />
     <Compile Include="Invocation.fs" />

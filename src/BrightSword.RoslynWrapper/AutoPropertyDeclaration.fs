@@ -30,14 +30,14 @@ module PropertyDeclaration =
         |> (fun ad -> pd.AddAccessorListAccessors ad)
 
     let ``prop`` propertyType propertyName modifiers =
-        (propertyType |> toIdentifierName, propertyName |> SF.Identifier)
+        (propertyType |> ident, propertyName |> SF.Identifier)
         |> SF.PropertyDeclaration
         |> setModifiers modifiers
         |> setGetAccessor
         |> setSetAccessor
 
     let ``propg`` propertyType propertyName modifiers =
-        (propertyType |> toIdentifierName, propertyName |> SF.Identifier)
+        (propertyType |> ident, propertyName |> SF.Identifier)
         |> SF.PropertyDeclaration
         |> setModifiers modifiers
         |> setGetAccessor

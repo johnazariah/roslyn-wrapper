@@ -17,9 +17,10 @@ module MethodDeclaration =
         |> SF.TokenList 
         |> md.WithModifiers 
 
-    let private setParameterList methodParams (md : MethodDeclarationSyntax) =
-        methodParams 
-        |> toParameterList
+    let private setParameterList parameters (md : MethodDeclarationSyntax) =
+        parameters 
+        |> Seq.map (fun (paramName, paramType) -> ``param`` paramName ``of`` paramType)
+        |> (SF.SeparatedList >> SF.ParameterList)
         |> md.WithParameterList
     
     let private setExpressionBody methodBody (md : MethodDeclarationSyntax) =
@@ -47,7 +48,7 @@ module MethodDeclaration =
             ``(`` methodParams ``)``
             modifiers
             methodBodyExpression =
-        (methodType |> toIdentifierName,  methodName |> SF.Identifier) |> SF.MethodDeclaration
+        (methodType |> ident,  methodName |> SF.Identifier) |> SF.MethodDeclaration
         |> setTypeParameters methodTypeParameters
         |> setModifiers modifiers
         |> setParameterList methodParams
@@ -60,7 +61,7 @@ module MethodDeclaration =
             ``{`` 
                 bodyBlockStatements
             ``}`` =
-        (methodType |> toIdentifierName,  methodName |> SF.Identifier) |> SF.MethodDeclaration
+        (methodType |> ident,  methodName |> SF.Identifier) |> SF.MethodDeclaration
         |> setTypeParameters methodTypeParameters
         |> setModifiers modifiers
         |> setParameterList methodParams

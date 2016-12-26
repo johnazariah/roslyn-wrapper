@@ -10,6 +10,12 @@ module Conversion =
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
     type SF = SyntaxFactory
+
+    let private setParameterList parameters (co : ConversionOperatorDeclarationSyntax) =
+        parameters  
+        |> Seq.map (fun (paramName, paramType) -> ``param`` paramName ``of`` paramType)
+        |> (SF.SeparatedList >> SF.ParameterList)
+        |> co.WithParameterList
     
     let private setModifiers modifiers (co : ConversionOperatorDeclarationSyntax) =
         modifiers
@@ -18,24 +24,27 @@ module Conversion =
         |> Seq.map SF.Token
         |> SF.TokenList 
         |> co.WithModifiers
+    
+    let private setExpressionBody body (co : ConversionOperatorDeclarationSyntax) =
+        co.WithExpressionBody body
         
     let private addClosingSemicolon (co : ConversionOperatorDeclarationSyntax) =
         SyntaxKind.SemicolonToken |> SF.Token 
         |> co.WithSemicolonToken
 
     let ``explicit operator`` target ``(`` source ``)`` initializer =
-        (SyntaxKind.ExplicitKeyword |> SF.Token, target |> toIdentifierName)
+        (SyntaxKind.ExplicitKeyword |> SF.Token, target |> ident)
         |> SF.ConversionOperatorDeclaration
-        |> (fun co -> co.WithParameterList <| toParameterList [ ("value", source) ])
+        |> setParameterList [ ("value", source) ]
         |> setModifiers [``public``; ``static``]
-        |> (fun co -> co.WithExpressionBody initializer)
+        |> setExpressionBody initializer
         |> addClosingSemicolon
 
     let ``implicit operator`` target ``(`` source ``)`` modifiers initializer =
-        (SyntaxKind.ImplicitKeyword |> SF.Token, target |> toIdentifierName)
+        (SyntaxKind.ImplicitKeyword |> SF.Token, target |> ident)
         |> SF.ConversionOperatorDeclaration
-        |> (fun co -> co.WithParameterList <| toParameterList [ ("value", source) ])
+        |> setParameterList [ ("value", source) ]
         |> setModifiers modifiers
-        |> (fun co -> co.WithExpressionBody initializer)
+        |> setExpressionBody initializer
         |> addClosingSemicolon
 

@@ -17,9 +17,8 @@ module ObjectCreation =
         |> (SF.SeparatedList >> SF.ArgumentList)
         |> oce.WithArgumentList
             
-    let ``new`` nameparts ``(`` arguments ``)`` = 
-        nameparts
-        |> toQualifiedName
+    let ``new`` genericName ``(`` arguments ``)`` = 
+        genericName
         |> SF.ObjectCreationExpression
         |> setArguments arguments
 
