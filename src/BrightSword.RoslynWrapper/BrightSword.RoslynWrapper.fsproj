@@ -69,6 +69,7 @@
     <Compile Include="Invocation.fs" />
     <Compile Include="Conversion.fs" />
     <Compile Include="FieldDeclaration.fs" />
+    <Compile Include="LocalDeclaration.fs" />
     <Compile Include="AutoPropertyDeclaration.fs" />
     <Compile Include="MethodDeclaration.fs" />
     <Compile Include="ConstructorDeclaration.fs" />
