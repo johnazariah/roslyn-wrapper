@@ -16,17 +16,30 @@ module PropertyDeclaration =
         |> Seq.map SF.Token
         |> SF.TokenList 
         |> pd.WithModifiers
-
+        
     let private setGetAccessor (pd : PropertyDeclarationSyntax) =
         SyntaxKind.GetAccessorDeclaration 
         |> SF.AccessorDeclaration 
         |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SF.Token))
         |> (fun ad -> pd.AddAccessorListAccessors ad)
 
-    let ``propg`` propertyType propertyName modifiers =
-        (propertyType |> toIdentifierName, propertyName |> SF.Identifier)
+    let private setSetAccessor (pd : PropertyDeclarationSyntax) =
+        SyntaxKind.SetAccessorDeclaration 
+        |> SF.AccessorDeclaration 
+        |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SF.Token))
+        |> (fun ad -> pd.AddAccessorListAccessors ad)
+
+    let ``prop`` propertyType propertyName modifiers =
+        (propertyType |> ident, propertyName |> SF.Identifier)
         |> SF.PropertyDeclaration
         |> setModifiers modifiers
         |> setGetAccessor
+        |> setSetAccessor
 
+    let ``propg`` propertyType propertyName modifiers =
+        (propertyType |> ident, propertyName |> SF.Identifier)
+        |> SF.PropertyDeclaration
+        |> setModifiers modifiers
+        |> setGetAccessor
+    
 

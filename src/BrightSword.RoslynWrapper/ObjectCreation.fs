@@ -13,13 +13,12 @@ module ObjectCreation =
 
     let private setArguments arguments (oce : ObjectCreationExpressionSyntax) = 
         arguments 
-        |> Seq.map (toIdentifierName >> SF.Argument) 
+        |> Seq.map (SF.Argument) 
         |> (SF.SeparatedList >> SF.ArgumentList)
         |> oce.WithArgumentList
             
-    let ``new`` nameparts ``(`` arguments ``)`` = 
-        nameparts
-        |> toQualifiedName
+    let ``new`` genericName ``(`` arguments ``)`` = 
+        genericName
         |> SF.ObjectCreationExpression
         |> setArguments arguments
 

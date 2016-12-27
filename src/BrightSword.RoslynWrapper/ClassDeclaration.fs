@@ -23,7 +23,7 @@ module ClassDeclaration =
     let private setBases bases (cd : ClassDeclarationSyntax) =
         if bases |> Seq.isEmpty then cd else
         bases 
-        |> Seq.map (toIdentifierName >> SF.SimpleBaseType >> (fun b -> b :> BaseTypeSyntax))
+        |> Seq.map (ident >> SF.SimpleBaseType >> (fun b -> b :> BaseTypeSyntax))
         |> (SF.SeparatedList >> SF.BaseList)
         |> cd.WithBaseList
 

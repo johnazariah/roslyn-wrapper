@@ -31,7 +31,7 @@ module ConstructorDeclaration =
     let private setInitializer baseConstructorParameters (cd : ConstructorDeclarationSyntax) =
         if baseConstructorParameters |> Seq.isEmpty then cd else
         baseConstructorParameters
-        |> Seq.map (toIdentifierName >> SF.Argument)
+        |> Seq.map (ident >> SF.Argument)
         |> (SF.SeparatedList >> SF.ArgumentList)
         |> (fun args -> SF.ConstructorInitializer(SyntaxKind.BaseConstructorInitializer, args))
         |> cd.WithInitializer 

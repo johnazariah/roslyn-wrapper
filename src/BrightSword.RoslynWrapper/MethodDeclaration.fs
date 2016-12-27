@@ -17,14 +17,20 @@ module MethodDeclaration =
         |> SF.TokenList 
         |> md.WithModifiers 
 
-    let private setParameterList methodParams (md : MethodDeclarationSyntax) =
-        methodParams 
-        |> toParameterList
+    let private setParameterList parameters (md : MethodDeclarationSyntax) =
+        parameters 
+        |> Seq.map (fun (paramName, paramType) -> ``param`` paramName ``of`` paramType)
+        |> (SF.SeparatedList >> SF.ParameterList)
         |> md.WithParameterList
     
     let private setExpressionBody methodBody (md : MethodDeclarationSyntax) =
         methodBody 
         |> Option.fold (fun (_md : MethodDeclarationSyntax) _mb -> _md.WithExpressionBody _mb) md
+
+    let private setBodyBlock bodyBlockStatements (md : MethodDeclarationSyntax) =
+        bodyBlockStatements
+        |> (Seq.toArray >> SF.Block)
+        |> md.WithBody
 
     let private setTypeParameters typeParameters (md : MethodDeclarationSyntax) =
         if typeParameters |> Seq.isEmpty then md
@@ -38,15 +44,25 @@ module MethodDeclaration =
         SyntaxKind.SemicolonToken |> SF.Token 
         |> md.WithSemicolonToken
 
-    let ``method`` methodType methodName ``<<`` methodTypeParameters ``>>`` 
-            ``(`` methodParams ``)`` 
-            modifiers 
-            ``=>`` methodBody =        
-        (methodType |> toIdentifierName,  methodName |> SF.Identifier) |> SF.MethodDeclaration
+    let ``arrow_method`` methodType methodName ``<<`` methodTypeParameters ``>>``
+            ``(`` methodParams ``)``
+            modifiers
+            methodBodyExpression =
+        (methodType |> ident,  methodName |> SF.Identifier) |> SF.MethodDeclaration
         |> setTypeParameters methodTypeParameters
         |> setModifiers modifiers
         |> setParameterList methodParams
-        |> setExpressionBody methodBody
+        |> setExpressionBody methodBodyExpression
         |> addClosingSemicolon
 
-
+    let ``method`` methodType methodName ``<<`` methodTypeParameters ``>>``
+            ``(`` methodParams ``)``
+            modifiers
+            ``{`` 
+                bodyBlockStatements
+            ``}`` =
+        (methodType |> ident,  methodName |> SF.Identifier) |> SF.MethodDeclaration
+        |> setTypeParameters methodTypeParameters
+        |> setModifiers modifiers
+        |> setParameterList methodParams
+        |> setBodyBlock bodyBlockStatements

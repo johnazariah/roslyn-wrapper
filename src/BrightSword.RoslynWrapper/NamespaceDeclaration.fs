@@ -14,7 +14,7 @@ module NamespaceDeclaration =
     let private setUsings usings (nd : NamespaceDeclarationSyntax) =
         usings @ ["System"]
         |> Set.ofList |> Set.toSeq
-        |> Seq.map (toIdentifierName >> SF.UsingDirective) 
+        |> Seq.map (ident >> SF.UsingDirective) 
         |> SF.List
         |> nd.WithUsings
 
@@ -29,7 +29,7 @@ module NamespaceDeclaration =
                 members
             ``}`` =
         namespaceName 
-        |> (toIdentifierName >> SF.NamespaceDeclaration)
+        |> (ident >> SF.NamespaceDeclaration)
         |> setUsings usings
         |> setMembers members
 
