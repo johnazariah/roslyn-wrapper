@@ -21,12 +21,40 @@ module NamespaceDeclaration =
         |> (Seq.toArray >> SyntaxFactory.List)
         |> nd.WithMembers
 
-    /// <summary>
-    /// This function creates a 'namespace' with the given name and contents
-    /// </summary>
-    /// <param name="namespaceName">A string representing the name of the namespace to be created</param>
-    /// <param name="usings">A sequence of strings representing the namespaces to include within this namespace</param>
-    /// <param name="members">A sequence of `MemberDeclaration`s the members of this namespace. Typically `class` and `interface`.</param>
+    /// This function creates a 'namespace' with the given name and contents:
+    ///
+    /// ##### Parameters
+    /// 1. **namespaceName** : `string` : The name of the namespace to be created
+    /// 1. ``{`` : white noise : ignored - use the ``{`` constant for visual structure
+    /// 1. **usings** : `string seq` : The namespaces to reference within this namespace
+    /// 1. **members** : `MemberDeclaration seq` : the members of this namespace. Typically `class` and `interface`
+    /// 1. ``}`` : white noise : ignored - use the ``}`` constant for visual structure
+    ///
+    /// ##### Returns
+    /// A `namespace` object
+    ///
+    /// ##### Usage
+    ///  ```
+    ///      ``namespace`` "Foo"
+    ///          ``{``
+    ///              [ "System" ]
+    ///              [ c ]
+    ///          ``}``
+    ///  ```
+    ///  will result in a namespace definition which will generate code similar to
+    ///  ```
+    ///      namespace Foo
+    ///      {
+    ///          using System;
+    ///
+    ///          class C {...}
+    ///      }
+    ///  ```
+    ///
+    /// ##### Notes
+    /// * The `System` namespace is always included by default
+    /// * You may pass a sequence of these namespaces to ``compilation unit`` and generate code from it
+    ///
     let ``namespace`` namespaceName 
             ``{`` 
                 usings
