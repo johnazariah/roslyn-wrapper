@@ -9,12 +9,10 @@ module ClassDeclaration =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
-    type SF = SyntaxFactory
-
     let private setModifiers modifiers (cd : ClassDeclarationSyntax)  = 
         modifiers 
-        |> Seq.map SF.Token 
-        |> SF.TokenList 
+        |> Seq.map SyntaxFactory.Token 
+        |> SyntaxFactory.TokenList 
         |> cd.WithModifiers
 
     let private setMembers members (cd : ClassDeclarationSyntax) =
@@ -23,15 +21,15 @@ module ClassDeclaration =
     let private setBases bases (cd : ClassDeclarationSyntax) =
         if bases |> Seq.isEmpty then cd else
         bases 
-        |> Seq.map (ident >> SF.SimpleBaseType >> (fun b -> b :> BaseTypeSyntax))
-        |> (SF.SeparatedList >> SF.BaseList)
+        |> Seq.map (ident >> SyntaxFactory.SimpleBaseType >> (fun b -> b :> BaseTypeSyntax))
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.BaseList)
         |> cd.WithBaseList
 
     let private setTypeParameters typeParameters (cd : ClassDeclarationSyntax) =
         if typeParameters |> Seq.isEmpty then cd else
         typeParameters 
-        |> Seq.map (SF.Identifier >> SF.TypeParameter)
-        |> (SF.SeparatedList >> SF.TypeParameterList)
+        |> Seq.map (SyntaxFactory.Identifier >> SyntaxFactory.TypeParameter)
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.TypeParameterList)
         |> cd.WithTypeParameterList
 
     let ``class`` className ``<<`` typeParameters ``>>``
@@ -40,7 +38,7 @@ module ClassDeclaration =
             ``{``
                  members
             ``}`` =             
-            className |> (SF.Identifier >> SF.ClassDeclaration)
+            className |> (SyntaxFactory.Identifier >> SyntaxFactory.ClassDeclaration)
             |> setTypeParameters typeParameters
             |> setBases (baseClassName ?+ baseInterfaces)
             |> setModifiers modifiers

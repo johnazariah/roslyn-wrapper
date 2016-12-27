@@ -9,18 +9,16 @@ module MethodDeclaration =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
 
-    type SF = SyntaxFactory
-
     let private setModifiers modifiers (md : MethodDeclarationSyntax) =
         modifiers 
-        |> Seq.map SF.Token
-        |> SF.TokenList 
+        |> Seq.map SyntaxFactory.Token
+        |> SyntaxFactory.TokenList 
         |> md.WithModifiers 
 
     let private setParameterList parameters (md : MethodDeclarationSyntax) =
         parameters 
         |> Seq.map (fun (paramName, paramType) -> ``param`` paramName ``of`` paramType)
-        |> (SF.SeparatedList >> SF.ParameterList)
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.ParameterList)
         |> md.WithParameterList
     
     let private setExpressionBody methodBody (md : MethodDeclarationSyntax) =
@@ -29,26 +27,26 @@ module MethodDeclaration =
 
     let private setBodyBlock bodyBlockStatements (md : MethodDeclarationSyntax) =
         bodyBlockStatements
-        |> (Seq.toArray >> SF.Block)
+        |> (Seq.toArray >> SyntaxFactory.Block)
         |> md.WithBody
 
     let private setTypeParameters typeParameters (md : MethodDeclarationSyntax) =
         if typeParameters |> Seq.isEmpty then md
         else
         typeParameters 
-        |> Seq.map (SF.Identifier >> SF.TypeParameter)
-        |> (SF.SeparatedList >> SF.TypeParameterList)
+        |> Seq.map (SyntaxFactory.Identifier >> SyntaxFactory.TypeParameter)
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.TypeParameterList)
         |> md.WithTypeParameterList
 
     let private addClosingSemicolon (md : MethodDeclarationSyntax) =
-        SyntaxKind.SemicolonToken |> SF.Token 
+        SyntaxKind.SemicolonToken |> SyntaxFactory.Token 
         |> md.WithSemicolonToken
 
     let ``arrow_method`` methodType methodName ``<<`` methodTypeParameters ``>>``
             ``(`` methodParams ``)``
             modifiers
             methodBodyExpression =
-        (methodType |> ident,  methodName |> SF.Identifier) |> SF.MethodDeclaration
+        (methodType |> ident,  methodName |> SyntaxFactory.Identifier) |> SyntaxFactory.MethodDeclaration
         |> setTypeParameters methodTypeParameters
         |> setModifiers modifiers
         |> setParameterList methodParams
@@ -61,7 +59,7 @@ module MethodDeclaration =
             ``{`` 
                 bodyBlockStatements
             ``}`` =
-        (methodType |> ident,  methodName |> SF.Identifier) |> SF.MethodDeclaration
+        (methodType |> ident,  methodName |> SyntaxFactory.Identifier) |> SyntaxFactory.MethodDeclaration
         |> setTypeParameters methodTypeParameters
         |> setModifiers modifiers
         |> setParameterList methodParams

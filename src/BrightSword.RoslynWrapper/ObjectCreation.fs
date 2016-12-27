@@ -9,16 +9,14 @@ module ObjectCreation =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
-    type SF = SyntaxFactory
-
     let private setArguments arguments (oce : ObjectCreationExpressionSyntax) = 
         arguments 
-        |> Seq.map (SF.Argument) 
-        |> (SF.SeparatedList >> SF.ArgumentList)
+        |> Seq.map (SyntaxFactory.Argument) 
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.ArgumentList)
         |> oce.WithArgumentList
             
     let ``new`` genericName ``(`` arguments ``)`` = 
         genericName
-        |> SF.ObjectCreationExpression
+        |> SyntaxFactory.ObjectCreationExpression
         |> setArguments arguments
 

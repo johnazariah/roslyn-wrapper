@@ -9,14 +9,12 @@ module Invocation =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
-    type SF = SyntaxFactory
-    
     let private setArguments (methodArguments : ArgumentSyntax seq) (ie : InvocationExpressionSyntax) =
         methodArguments
-        |> (SF.SeparatedList >> SF.ArgumentList)
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.ArgumentList)
         |> ie.WithArgumentList
         
     let ``invoke`` m ``(`` args ``)`` =
         m
-        |> SF.InvocationExpression
-        |> setArguments (args |> Seq.map SF.Argument)
+        |> SyntaxFactory.InvocationExpression
+        |> setArguments (args |> Seq.map SyntaxFactory.Argument)
