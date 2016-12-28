@@ -14,10 +14,8 @@ module CompilationUnit =
         |> (Seq.toArray >> SyntaxFactory.List)
         |> cu.WithMembers
 
-    ///<summary>
-    /// This function creates a 'compilation unit' given a sequence of 'namespace' objects
-    ///</summary>
-    let ``compilation unit`` namespaces =
+    /// This function creates a 'compilation unit' given a sequence of members. 
+    let ``compilation unit`` members =
         SyntaxFactory.CompilationUnit()
-        |> addMembers namespaces
+        |> addMembers members
         |> (fun cu -> cu.NormalizeWhitespace())

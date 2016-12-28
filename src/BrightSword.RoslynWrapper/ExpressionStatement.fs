@@ -21,6 +21,9 @@ module Expressions =
     let ``as`` targetType expression = 
         SyntaxFactory.BinaryExpression (SyntaxKind.AsExpression, expression, ident targetType)
 
+    /// alias for the ``as`` function
+    let (|~>) expression targetType = ``as`` targetType expression
+
     // await expr
     let ``await`` =
         SyntaxFactory.AwaitExpression
