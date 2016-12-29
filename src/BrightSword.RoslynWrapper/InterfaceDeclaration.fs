@@ -9,12 +9,10 @@ module InterfaceDeclaration =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
-    type SF = SyntaxFactory
-
     let private setModifiers modifiers (cd : InterfaceDeclarationSyntax)  = 
         modifiers 
-        |> Seq.map SF.Token 
-        |> SF.TokenList 
+        |> Seq.map SyntaxFactory.Token 
+        |> SyntaxFactory.TokenList 
         |> cd.WithModifiers
 
     let private setMembers members (cd : InterfaceDeclarationSyntax) =
@@ -23,16 +21,16 @@ module InterfaceDeclaration =
     let private setBases bases (cd : InterfaceDeclarationSyntax) =
         if bases |> Seq.isEmpty then cd else
         bases 
-        |> Seq.map (ident >> SF.SimpleBaseType >> (fun b -> b :> BaseTypeSyntax))
-        |> (SF.SeparatedList >> SF.BaseList)
+        |> Seq.map (ident >> SyntaxFactory.SimpleBaseType >> (fun b -> b :> BaseTypeSyntax))
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.BaseList)
         |> cd.WithBaseList
 
     let private setTypeParameters typeParameters (cd : InterfaceDeclarationSyntax) =
         if typeParameters |> Seq.isEmpty then cd
         else
         typeParameters 
-        |> Seq.map (SF.Identifier >> SF.TypeParameter)
-        |> (SF.SeparatedList >> SF.TypeParameterList)
+        |> Seq.map (SyntaxFactory.Identifier >> SyntaxFactory.TypeParameter)
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.TypeParameterList)
         |> cd.WithTypeParameterList
 
     let ``interface`` interfaceName ``<<`` typeParameters ``>>``
@@ -41,7 +39,7 @@ module InterfaceDeclaration =
             ``{``
                  members
             ``}`` =             
-            interfaceName |> (SF.Identifier >> SF.InterfaceDeclaration)
+            interfaceName |> (SyntaxFactory.Identifier >> SyntaxFactory.InterfaceDeclaration)
             |> setTypeParameters typeParameters
             |> setBases baseInterfaces
             |> setModifiers modifiers

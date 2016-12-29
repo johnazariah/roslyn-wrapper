@@ -9,36 +9,34 @@ module PropertyDeclaration =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
 
-    type SF = SyntaxFactory
-        
     let private setModifiers modifiers (pd : PropertyDeclarationSyntax) =
         modifiers 
-        |> Seq.map SF.Token
-        |> SF.TokenList 
+        |> Seq.map SyntaxFactory.Token
+        |> SyntaxFactory.TokenList 
         |> pd.WithModifiers
         
     let private setGetAccessor (pd : PropertyDeclarationSyntax) =
         SyntaxKind.GetAccessorDeclaration 
-        |> SF.AccessorDeclaration 
-        |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SF.Token))
+        |> SyntaxFactory.AccessorDeclaration 
+        |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SyntaxFactory.Token))
         |> (fun ad -> pd.AddAccessorListAccessors ad)
 
     let private setSetAccessor (pd : PropertyDeclarationSyntax) =
         SyntaxKind.SetAccessorDeclaration 
-        |> SF.AccessorDeclaration 
-        |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SF.Token))
+        |> SyntaxFactory.AccessorDeclaration 
+        |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SyntaxFactory.Token))
         |> (fun ad -> pd.AddAccessorListAccessors ad)
 
     let ``prop`` propertyType propertyName modifiers =
-        (propertyType |> ident, propertyName |> SF.Identifier)
-        |> SF.PropertyDeclaration
+        (propertyType |> ident, propertyName |> SyntaxFactory.Identifier)
+        |> SyntaxFactory.PropertyDeclaration
         |> setModifiers modifiers
         |> setGetAccessor
         |> setSetAccessor
 
     let ``propg`` propertyType propertyName modifiers =
-        (propertyType |> ident, propertyName |> SF.Identifier)
-        |> SF.PropertyDeclaration
+        (propertyType |> ident, propertyName |> SyntaxFactory.Identifier)
+        |> SyntaxFactory.PropertyDeclaration
         |> setModifiers modifiers
         |> setGetAccessor
     

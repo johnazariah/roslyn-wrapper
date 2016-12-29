@@ -6,8 +6,6 @@ module WhiteNoise =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
-    type SF = SyntaxFactory
-    
     let ``:`` = None
     let ``,`` = None
     let ``}`` = None

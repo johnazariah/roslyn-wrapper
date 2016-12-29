@@ -9,20 +9,18 @@ module GenericName =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
-    type SF = SyntaxFactory
-
     let private setTypeArgumentList typeArguments (gn : GenericNameSyntax) =
         typeArguments
         |> Seq.map (ident >> (fun t -> t :> TypeSyntax))
-        |> (SF.SeparatedList >> SF.TypeArgumentList)
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.TypeArgumentList)
         |> gn.WithTypeArgumentList
  
     let private simpleType parts =
         let rec toQualifiedNameImpl = function
             | [] -> failwith "cannot get qualified name of empty list"
             | [ n ] -> n |> ident :> NameSyntax
-            | [ p1 ; p2 ] -> (p2, p1) |> mapTuple2 ident |> SF.QualifiedName :> NameSyntax
-            | p1 :: rest -> (toQualifiedNameImpl rest, p1 |> ident) |> SF.QualifiedName :> NameSyntax
+            | [ p1 ; p2 ] -> (p2, p1) |> mapTuple2 ident |> SyntaxFactory.QualifiedName :> NameSyntax
+            | p1 :: rest -> (toQualifiedNameImpl rest, p1 |> ident) |> SyntaxFactory.QualifiedName :> NameSyntax
         in parts |> List.rev |> toQualifiedNameImpl
 
     type SimpleType = SimpleType with
@@ -33,7 +31,7 @@ module GenericName =
 
     let ``generic type`` typeName ``<<`` typeArguments ``>>`` =
         typeName
-        |> (SF.Identifier >> SF.GenericName)
+        |> (SyntaxFactory.Identifier >> SyntaxFactory.GenericName)
         |> setTypeArgumentList typeArguments
 
     let ``type name`` (typeSyntax : NameSyntax) = typeSyntax.ToFullString ()

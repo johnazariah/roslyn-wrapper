@@ -9,27 +9,59 @@ module NamespaceDeclaration =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
-    type SF = SyntaxFactory
-    
     let private setUsings usings (nd : NamespaceDeclarationSyntax) =
         usings @ ["System"]
         |> Set.ofList |> Set.toSeq
-        |> Seq.map (ident >> SF.UsingDirective) 
-        |> SF.List
+        |> Seq.map (ident >> SyntaxFactory.UsingDirective) 
+        |> SyntaxFactory.List
         |> nd.WithUsings
 
     let private setMembers members (nd : NamespaceDeclarationSyntax) =
         members 
-        |> (Seq.toArray >> SF.List)
+        |> (Seq.toArray >> SyntaxFactory.List)
         |> nd.WithMembers
 
+    /// This function creates a 'namespace' with the given name and contents:
+    ///
+    /// ##### Parameters
+    /// 1. **namespaceName** : `string` : The name of the namespace to be created
+    /// 1. ``{`` : white noise : ignored - use the ``{`` constant for visual structure
+    /// 1. **usings** : `string seq` : The namespaces to reference within this namespace
+    /// 1. **members** : `MemberDeclaration seq` : the members of this namespace. Typically `class` and `interface`
+    /// 1. ``}`` : white noise : ignored - use the ``}`` constant for visual structure
+    ///
+    /// ##### Returns
+    /// A `namespace` object
+    ///
+    /// ##### Usage
+    ///  ```
+    ///      ``namespace`` "Foo"
+    ///          ``{``
+    ///              [ "System" ]
+    ///              [ c ]
+    ///          ``}``
+    ///  ```
+    ///  will result in a namespace definition which will generate code similar to
+    ///  ```
+    ///      namespace Foo
+    ///      {
+    ///          using System;
+    ///
+    ///          class C {...}
+    ///      }
+    ///  ```
+    ///
+    /// ##### Notes
+    /// * The `System` namespace is always included by default
+    /// * You may pass a sequence of these namespaces to ``compilation unit`` and generate code from it
+    ///
     let ``namespace`` namespaceName 
             ``{`` 
                 usings
                 members
             ``}`` =
         namespaceName 
-        |> (ident >> SF.NamespaceDeclaration)
+        |> (ident >> SyntaxFactory.NamespaceDeclaration)
         |> setUsings usings
         |> setMembers members
 

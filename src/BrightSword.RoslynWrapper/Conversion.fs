@@ -9,40 +9,38 @@ module Conversion =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
-    type SF = SyntaxFactory
-
     let private setParameterList parameters (co : ConversionOperatorDeclarationSyntax) =
         parameters  
         |> Seq.map (fun (paramName, paramType) -> ``param`` paramName ``of`` paramType)
-        |> (SF.SeparatedList >> SF.ParameterList)
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.ParameterList)
         |> co.WithParameterList
     
     let private setModifiers modifiers (co : ConversionOperatorDeclarationSyntax) =
         modifiers
         |> Set.ofSeq
         |> (fun s -> s.Add ``static``) 
-        |> Seq.map SF.Token
-        |> SF.TokenList 
+        |> Seq.map SyntaxFactory.Token
+        |> SyntaxFactory.TokenList 
         |> co.WithModifiers
     
     let private setExpressionBody body (co : ConversionOperatorDeclarationSyntax) =
         co.WithExpressionBody body
         
     let private addClosingSemicolon (co : ConversionOperatorDeclarationSyntax) =
-        SyntaxKind.SemicolonToken |> SF.Token 
+        SyntaxKind.SemicolonToken |> SyntaxFactory.Token 
         |> co.WithSemicolonToken
 
     let ``explicit operator`` target ``(`` source ``)`` initializer =
-        (SyntaxKind.ExplicitKeyword |> SF.Token, target |> ident)
-        |> SF.ConversionOperatorDeclaration
+        (SyntaxKind.ExplicitKeyword |> SyntaxFactory.Token, target |> ident)
+        |> SyntaxFactory.ConversionOperatorDeclaration
         |> setParameterList [ ("value", source) ]
         |> setModifiers [``public``; ``static``]
         |> setExpressionBody initializer
         |> addClosingSemicolon
 
     let ``implicit operator`` target ``(`` source ``)`` modifiers initializer =
-        (SyntaxKind.ImplicitKeyword |> SF.Token, target |> ident)
-        |> SF.ConversionOperatorDeclaration
+        (SyntaxKind.ImplicitKeyword |> SyntaxFactory.Token, target |> ident)
+        |> SyntaxFactory.ConversionOperatorDeclaration
         |> setParameterList [ ("value", source) ]
         |> setModifiers modifiers
         |> setExpressionBody initializer

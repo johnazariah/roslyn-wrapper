@@ -9,14 +9,13 @@ module CompilationUnit =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
     
-    type SF = SyntaxFactory
-    
     let private addMembers members (cu : CompilationUnitSyntax) =
         members
-        |> (Seq.toArray >> SF.List)
+        |> (Seq.toArray >> SyntaxFactory.List)
         |> cu.WithMembers
 
-    let ``compilation unit`` namespaces =
-        SF.CompilationUnit()
-        |> addMembers namespaces
+    /// This function creates a 'compilation unit' given a sequence of members. 
+    let ``compilation unit`` members =
+        SyntaxFactory.CompilationUnit()
+        |> addMembers members
         |> (fun cu -> cu.NormalizeWhitespace())
