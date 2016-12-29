@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Expressions - BrightSword.RoslynWrapper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="John Azariah"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/roslyn-wrapper/content/style.css" />
+    <script type="text/javascript" src="/roslyn-wrapper/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="https://github.com/johnazariah/roslyn-wrapper">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/roslyn-wrapper/index.html">BrightSword.RoslynWrapper</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Expressions</h1>
+<p>
+  <span>Namespace: BrightSword.RoslynWrapper</span><br />
+</p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '13', 13)" onmouseover="showTip(event, '13', 13)">
+            ( () =&gt; ) parameters expression
+          </code>
+          <div class="tip" id="13">
+            <strong>Signature:</strong> parameters:seq&lt;string&gt; -&gt; expression:CSharpSyntaxNode -&gt; ParenthesizedLambdaExpressionSyntax<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/johnazariah/roslyn-wrapper/tree/master/src/BrightSword.RoslynWrapper/ExpressionStatement.fs#L31-31" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>() =></code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '14', 14)" onmouseover="showTip(event, '14', 14)">
+            ( _ =&gt; ) parameterName expression
+          </code>
+          <div class="tip" id="14">
+            <strong>Signature:</strong> parameterName:string -&gt; expression:CSharpSyntaxNode -&gt; SimpleLambdaExpressionSyntax<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/johnazariah/roslyn-wrapper/tree/master/src/BrightSword.RoslynWrapper/ExpressionStatement.fs#L36-36" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>_ =></code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '15', 15)" onmouseover="showTip(event, '15', 15)">
+            ( |~&gt; ) expression targetType
+          </code>
+          <div class="tip" id="15">
+            <strong>Signature:</strong> expression:ExpressionSyntax -&gt; targetType:string -&gt; BinaryExpressionSyntax<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/johnazariah/roslyn-wrapper/tree/master/src/BrightSword.RoslynWrapper/ExpressionStatement.fs#L25-25" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>alias for the <code>as</code> function</p>
+
+
+              <p>CompiledName: <code>op_BarTwiddleGreater</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '16', 16)" onmouseover="showTip(event, '16', 16)">
+            ( &lt;-- ) target source
+          </code>
+          <div class="tip" id="16">
+            <strong>Signature:</strong> target:ExpressionSyntax -&gt; source:ExpressionSyntax -&gt; AssignmentExpressionSyntax<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/johnazariah/roslyn-wrapper/tree/master/src/BrightSword.RoslynWrapper/ExpressionStatement.fs#L9-9" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>op_LessMinusMinus</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '17', 17)" onmouseover="showTip(event, '17', 17)">
+            ( &lt;.&gt; ) a b
+          </code>
+          <div class="tip" id="17">
+            <strong>Signature:</strong> a:ExpressionSyntax -&gt; b:SimpleNameSyntax -&gt; MemberAccessExpressionSyntax<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/johnazariah/roslyn-wrapper/tree/master/src/BrightSword.RoslynWrapper/ExpressionStatement.fs#L13-13" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>op_LessDotGreater</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '18', 18)" onmouseover="showTip(event, '18', 18)">
+            as targetType expression
+          </code>
+          <div class="tip" id="18">
+            <strong>Signature:</strong> targetType:string -&gt; expression:ExpressionSyntax -&gt; BinaryExpressionSyntax<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/johnazariah/roslyn-wrapper/tree/master/src/BrightSword.RoslynWrapper/ExpressionStatement.fs#L21-21" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
+            await arg00
+          </code>
+          <div class="tip" id="19">
+            <strong>Signature:</strong> arg00:ExpressionSyntax -&gt; AwaitExpressionSyntax<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/johnazariah/roslyn-wrapper/tree/master/src/BrightSword.RoslynWrapper/ExpressionStatement.fs#L28-28" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
+            cast targetType expression
+          </code>
+          <div class="tip" id="20">
+            <strong>Signature:</strong> targetType:string -&gt; expression:ExpressionSyntax -&gt; CastExpressionSyntax<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/johnazariah/roslyn-wrapper/tree/master/src/BrightSword.RoslynWrapper/ExpressionStatement.fs#L17-17" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '21', 21)" onmouseover="showTip(event, '21', 21)">
+            statement s
+          </code>
+          <div class="tip" id="21">
+            <strong>Signature:</strong> s:ExpressionSyntax -&gt; StatementSyntax<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="https://github.com/johnazariah/roslyn-wrapper/tree/master/src/BrightSword.RoslynWrapper/ExpressionStatement.fs#L40-40" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/roslyn-wrapper/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">BrightSword.RoslynWrapper</li>
+            <li><a href="/roslyn-wrapper/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/BrightSword.RoslynWrapper">Get Library via NuGet</a></li>
+            <li><a href="https://github.com/johnazariah/roslyn-wrapper">Source Code on GitHub</a></li>
+            <li><a href="/roslyn-wrapper/license.html">License</a></li>
+            <li><a href="/roslyn-wrapper/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/roslyn-wrapper/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/roslyn-wrapper/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/johnazariah/roslyn-wrapper"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
