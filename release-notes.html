@@ -32,6 +32,85 @@
       <div class="row">
         <div class="span9" id="main">
           
+<h4><a name="1-0-2-December-31-2016" class="anchor" href="#1-0-2-December-31-2016">1.0.2 - December 31 2016</a></h4>
+<ul>
+<li>
+Clean-up and Document
+<ul>
+<li>
+The following inline functions generate expressions as follows:
+<ul>
+<li><&&> - logical AND</li>
+<li><||> - logical OR</li>
+<li><^> - exclusive OR</li>
+<li><==> - equality</li>
+<li><!=> - inequality</li>
+<li>! - logical NOT</li>
+<li><|.|> - dot access to fields</li>
+<li><.> - dot access to methods</li>
+<li><\??> - null coalesce</li>
+<li><|?.|> - conditional dot access to fields</li>
+<li><\?.> - conditional dot access to methods</li>
+<li><p>|~&gt; - inline form of <code>as</code></p></li>
+</ul>
+</li>
+<li>
+The following functions generate expressions and statements as follows:
+<ul>
+<li><code>as</code> ... : ( <em> as </em> )</li>
+<li><code>is</code> ... : ( <em> is </em> )</li>
+<li><code>cast</code> ... : (cast) ...</li>
+<li><code>await</code> ... : await</li>
+<li><code>new</code> ... : new ...</li>
+<li><code>=&gt;</code> ... : arrow expression</li>
+<li><code>:=</code> ... : assignment expression</li>
+<li><code>return</code> ... : return ...</li>
+<li><code>throw</code> ... : throw ...</li>
+<li><code>_ =&gt;</code> ... : lambda expression with one parameter</li>
+<li><code>() =&gt;</code> ... : lambda expression with multiple parameters</li>
+<li>ident ... : define an identifier</li>
+<li><p><code>type</code> ... : define a type</p></li>
+</ul>
+</li>
+<li>
+The following functions generate syntax declarations - along with associated keywords
+<ul>
+<li><code>namespace</code> ... : namespace</li>
+<li><code>using</code> ... : using</li>
+<li><code>interface</code> ... : interface</li>
+<li><code>class</code> ... : class</li>
+<li><code>constructor</code> ... : constructor</li>
+<li><code>field</code> ... : field</li>
+<li><code>method</code> ... : method</li>
+<li><code>prop</code> ... : read-write property</li>
+<li><code>propg</code> ... : read-only property</li>
+<li><code>var</code> ... : local variable declaration</li>
+<li><code>operator ==</code> : equality operator</li>
+<li><code>operator !=</code> : inequality operator</li>
+<li><code>explicit operator</code> : explicit conversion operator</li>
+<li><p><code>implicit operator</code> : implicit conversion operator</p></li>
+</ul>
+</li>
+<li>
+The following literal types are supported
+<ul>
+<li>string</li>
+<li>char</li>
+<li>int</li>
+<li>long</li>
+<li>double</li>
+<li>float</li>
+<li>decimal</li>
+<li>uint32</li>
+<li>uint64</li>
+<li><code>null</code> : literal null</li>
+<li><code>false</code> : literal false</li>
+<li><code>true</code> : literal true</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h4><a name="1-0-1-December-31-2016" class="anchor" href="#1-0-1-December-31-2016">1.0.1 - December 31 2016</a></h4>
 <ul>
 <li>Added more expressions</li>
