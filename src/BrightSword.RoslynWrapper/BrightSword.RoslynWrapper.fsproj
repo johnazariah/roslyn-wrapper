@@ -62,12 +62,13 @@
   <ItemGroup>
     <Compile Include="WhiteNoise.fs" />
     <Compile Include="Common.fs" />
+    <Compile Include="Invocation.fs" />
     <Compile Include="Literals.fs" />
     <Compile Include="ExpressionStatement.fs" />
     <Compile Include="GenericName.fs" />
     <Compile Include="ObjectCreation.fs" />
-    <Compile Include="Invocation.fs" />
     <Compile Include="Conversion.fs" />
+    <Compile Include="Equality.fs" />
     <Compile Include="FieldDeclaration.fs" />
     <Compile Include="LocalDeclaration.fs" />
     <Compile Include="AutoPropertyDeclaration.fs" />

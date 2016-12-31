@@ -18,3 +18,4 @@ module Invocation =
         m
         |> SyntaxFactory.InvocationExpression
         |> setArguments (args |> Seq.map SyntaxFactory.Argument)
+        :> ExpressionSyntax

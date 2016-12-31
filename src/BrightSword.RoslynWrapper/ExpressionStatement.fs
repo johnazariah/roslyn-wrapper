@@ -9,10 +9,6 @@ module Expressions =
     let (<--) target source =
          SyntaxFactory.AssignmentExpression (SyntaxKind.SimpleAssignmentExpression, target, source)
 
-    // a.b
-    let (<.>) a b = 
-        SyntaxFactory.MemberAccessExpression (SyntaxKind.SimpleMemberAccessExpression, a, b)
-
     // (targetType) expression        
     let ``cast`` targetType expression = 
         SyntaxFactory.CastExpression (ident targetType, expression)
@@ -40,6 +36,69 @@ module Expressions =
     let statement s = 
         SyntaxFactory.ExpressionStatement s
         :> Syntax.StatementSyntax
+
+    // left ?? right
+    let (<??>) left right =
+        SyntaxFactory.BinaryExpression (SyntaxKind.CoalesceExpression, left, right)
+        :> ExpressionSyntax
+
+    // left.right
+    let (<|.|>) left right = 
+        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, left, (ident right))
+        :> ExpressionSyntax
+
+    // left.right(args)
+    let (<.>) left (right, args) = 
+        args |> (Option.fold (fun mae args' -> ``invoke`` mae ``(`` args' ``)``) (left <|.|> right))
+
+    // left?.right
+    let (<|?.|>) left right = 
+        let member_binding_expr = (ident >> SyntaxFactory.MemberBindingExpression) right
+        SyntaxFactory.ConditionalAccessExpression (left, member_binding_expr)
+        :> ExpressionSyntax
+
+    // left?.right(args)
+    let (<?.>) left (right, args) =
+        let member_binding_expr = 
+            (ident >> SyntaxFactory.MemberBindingExpression) right :> ExpressionSyntax
+
+        let target = 
+            args |> (Option.fold (fun mbe args' -> ``invoke`` mbe ``(`` args' ``)``) member_binding_expr)
+        
+        SyntaxFactory.ConditionalAccessExpression (left, target)
+        :> ExpressionSyntax
+
+    let (<==>) left right =
+        (SyntaxKind.EqualsExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    let (<!=>) left right =
+        (SyntaxKind.NotEqualsExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    let (<&&>) left right =
+        (SyntaxKind.LogicalAndExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    let (<^>) left right =
+        (SyntaxKind.ExclusiveOrExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    let (<||>) left right =
+        (SyntaxKind.LogicalOrExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    let (!) expr =
+        (SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression expr) |> SyntaxFactory.PrefixUnaryExpression
+        :> ExpressionSyntax
+
+    let ``is`` targetType expression = 
+        SyntaxFactory.BinaryExpression (SyntaxKind.IsExpression, expression, ident targetType)
+
+    let ``))`` = None
+    let ``((`` expr ``))`` = 
+        SyntaxFactory.ParenthesizedExpression expr
+
 
 [<AutoOpen>]
 module Statements = 

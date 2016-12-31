@@ -180,10 +180,149 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: member.access``() =
-        let ma = (ident "System") <.> (ident "Console") <.> (ident "WriteLine")
-        let s = ``invoke`` ma ``(`` [ literal "Hello, World!" ] ``)`` |> statement
+    let ``statement: is``() =
+        let expr = ``is`` "float" (ident "b")
+        let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = b is float;
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``statement: ==``() =
+        let expr = (ident "b") <==> (literal 12)
+        let s = ((ident "a") <-- expr) |> statement 
+        let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = b == 12;
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``statement: !=``() =
+        let expr = (ident "b") <!=> (literal 12)
+        let s = ((ident "a") <-- expr) |> statement 
+        let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = b != 12;
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``statement: ^``() =
+        let expr = (ident "b") <^> (literal 12)
+        let s = ((ident "a") <-- expr) |> statement 
+        let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = b ^ 12;
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``statement: ??``() =
+        let expr = (ident "b") <??> ``false``
+        let s = ((ident "a") <-- expr) |> statement 
+        let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = b ?? false;
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``statement: paranthesize``() =
+        let expr = ``((`` ((ident "b") <^> (literal 12)) ``))``
+        let s = ((ident "a") <-- expr) |> statement 
+        let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = (b ^ 12);
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``statement: !``() =
+        let expr = ! ((ident "b") <^> (literal 12))
+        let s = ((ident "a") <-- expr) |> statement 
+        let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = !(b ^ 12);
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``statement: member.access``() =
+        let ma = (ident "System") <|.|> "Console" <.> ("WriteLine", Some [ literal "Hello, World!" ])
+        let m = host_in_method "int" [ statement ma ]
         let actual = to_class_members_code [m]
         let expected = @"namespace N
 {
@@ -200,10 +339,28 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
+    let ``statement: member?.access``() =
+        let ma = (ident "System") <|?.|> "Console" <?.> ("WriteLine", Some [ literal "Hello, World!" ])
+        let m = host_in_method "int" [ statement ma ]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            System?.Console?.WriteLine(""Hello, World!"");
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
     let ``statement: async - await``() =
-        let ma = (ident "System") <.> (ident "Console") <.> (ident "WriteLine")
-        let w = ``invoke`` ma ``(`` [ literal "Hello, World!" ] ``)``
-        let s = ``await`` w |> statement
+        let ma = (ident "System") <|.|> "Console" <.> ("WriteLine", Some [ literal "Hello, World!" ])
+        let s = ``await`` ma |> statement
         let m =
             ``method`` "int" "Host" ``<<`` [] ``>>`` ``(`` [] ``)``
                 [``protected``; ``internal``; ``async`` ]
