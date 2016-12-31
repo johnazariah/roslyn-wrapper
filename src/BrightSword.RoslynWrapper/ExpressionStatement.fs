@@ -1,4 +1,5 @@
 ﻿namespace BrightSword.RoslynWrapper
+
 [<AutoOpen>]
 module Expressions = 
     open Microsoft.CodeAnalysis
@@ -49,7 +50,7 @@ module Expressions =
 
     // left.right(args)
     let (<.>) left (right, args) = 
-        args |> (Option.fold (fun mae args' -> ``invoke`` mae ``(`` args' ``)``) (left <|.|> right))
+        ``invoke`` (left <|.|> right) ``(`` args ``)``
 
     // left?.right
     let (<|?.|>) left right = 
@@ -62,43 +63,50 @@ module Expressions =
         let member_binding_expr = 
             (ident >> SyntaxFactory.MemberBindingExpression) right :> ExpressionSyntax
 
-        let target = 
-            args |> (Option.fold (fun mbe args' -> ``invoke`` mbe ``(`` args' ``)``) member_binding_expr)
-        
+        let target = ``invoke`` member_binding_expr ``(`` args ``)``
         SyntaxFactory.ConditionalAccessExpression (left, target)
         :> ExpressionSyntax
 
+    // left == right
     let (<==>) left right =
         (SyntaxKind.EqualsExpression, left, right) |> SyntaxFactory.BinaryExpression
         :> ExpressionSyntax
 
+    // left != right
     let (<!=>) left right =
         (SyntaxKind.NotEqualsExpression, left, right) |> SyntaxFactory.BinaryExpression
         :> ExpressionSyntax
 
-    let (<&&>) left right =
-        (SyntaxKind.LogicalAndExpression, left, right) |> SyntaxFactory.BinaryExpression
-        :> ExpressionSyntax
-
+    // left ^ right
     let (<^>) left right =
         (SyntaxKind.ExclusiveOrExpression, left, right) |> SyntaxFactory.BinaryExpression
         :> ExpressionSyntax
 
+    // left && right
+    let (<&&>) left right =
+        (SyntaxKind.LogicalAndExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    // left || right
     let (<||>) left right =
         (SyntaxKind.LogicalOrExpression, left, right) |> SyntaxFactory.BinaryExpression
         :> ExpressionSyntax
 
+    // ! (expr)
     let (!) expr =
         (SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression expr) |> SyntaxFactory.PrefixUnaryExpression
         :> ExpressionSyntax
 
+    // expr is target
     let ``is`` targetType expression = 
         SyntaxFactory.BinaryExpression (SyntaxKind.IsExpression, expression, ident targetType)
+        :> ExpressionSyntax
 
+    // ( expr )
     let ``))`` = None
     let ``((`` expr ``))`` = 
         SyntaxFactory.ParenthesizedExpression expr
-
+        :> ExpressionSyntax
 
 [<AutoOpen>]
 module Statements = 

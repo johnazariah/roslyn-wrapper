@@ -6,7 +6,7 @@ open BrightSword.RoslynWrapper
 
 module StatementTests = 
     [<Test>]
-    let ``statement: new``() =
+    let ``expression: new``() =
         let t = ``generic type`` "List" ``<<`` [ "int" ] ``>>``
         let s = ``new`` t ``(`` [ ] ``)``
         let m = return_from_arrow_method (``type name`` t) s
@@ -23,7 +23,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: new() with args``() =
+    let ``expression: new() with args``() =
         let s = ``new`` (``type`` ["System"; "String" ]) ``(`` [ literal "A" ] ``)``
         let m = return_from_arrow_method "String" s
         let actual = to_class_members_code [m]
@@ -78,7 +78,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: assignment``() =
+    let ``expression: assignment``() =
         let target = ident "a"
         let source = literal 42
         let s = statement (target <-- source)
@@ -140,7 +140,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: cast``() =
+    let ``expression: cast``() =
         let expr = ``cast`` "float" (literal 42)
         let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
@@ -160,7 +160,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: as``() =
+    let ``expression: as``() =
         let expr = ``as`` "float" (ident "b")
         let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
@@ -180,7 +180,27 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: is``() =
+    let ``expression: |~> ``() =
+        let expr = (ident "b") |~> "float" 
+        let s = ((ident "a") <-- expr) |> statement 
+        let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = b as float;
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``expression: is``() =
         let expr = ``is`` "float" (ident "b")
         let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
@@ -200,7 +220,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: ==``() =
+    let ``expression: ==``() =
         let expr = (ident "b") <==> (literal 12)
         let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
@@ -220,7 +240,47 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: !=``() =
+    let ``expression: &&``() =
+        let expr = (ident "b") <&&> (ident "c")
+        let s = ((ident "a") <-- expr) |> statement
+        let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = b && c;
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``expression: ||``() =
+        let expr = (ident "b") <||> (ident "c")
+        let s = ((ident "a") <-- expr) |> statement
+        let m = host_in_method "int" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            a = b || c;
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``expression: !=``() =
         let expr = (ident "b") <!=> (literal 12)
         let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
@@ -240,7 +300,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: ^``() =
+    let ``expression: ^``() =
         let expr = (ident "b") <^> (literal 12)
         let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
@@ -260,7 +320,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: ??``() =
+    let ``expression: ??``() =
         let expr = (ident "b") <??> ``false``
         let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
@@ -280,7 +340,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: paranthesize``() =
+    let ``expression: paranthesize``() =
         let expr = ``((`` ((ident "b") <^> (literal 12)) ``))``
         let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
@@ -300,7 +360,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: !``() =
+    let ``expression: !``() =
         let expr = ! ((ident "b") <^> (literal 12))
         let s = ((ident "a") <-- expr) |> statement 
         let m = host_in_method "int" [s]
@@ -320,8 +380,8 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: member.access``() =
-        let ma = (ident "System") <|.|> "Console" <.> ("WriteLine", Some [ literal "Hello, World!" ])
+    let ``expression: member.access``() =
+        let ma = (ident "System") <|.|> "Console" <.> ("WriteLine", [ literal "Hello, World!" ])
         let m = host_in_method "int" [ statement ma ]
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -339,8 +399,8 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: member?.access``() =
-        let ma = (ident "System") <|?.|> "Console" <?.> ("WriteLine", Some [ literal "Hello, World!" ])
+    let ``expression: member?.access``() =
+        let ma = (ident "System") <|?.|> "Console" <?.> ("WriteLine", [ literal "Hello, World!" ])
         let m = host_in_method "int" [ statement ma ]
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -358,8 +418,8 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: async - await``() =
-        let ma = (ident "System") <|.|> "Console" <.> ("WriteLine", Some [ literal "Hello, World!" ])
+    let ``expression: async - await``() =
+        let ma = (ident "System") <|.|> "Console" <.> ("WriteLine", [ literal "Hello, World!" ])
         let s = ``await`` ma |> statement
         let m =
             ``method`` "int" "Host" ``<<`` [] ``>>`` ``(`` [] ``)``
@@ -383,7 +443,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: literals``() =
+    let ``expression: literals``() =
         let ss = 
             [
                 (ident "a") <-- (literal "Hello World")
@@ -429,7 +489,7 @@ module StatementTests =
         are_equal expected actual
 
     [<Test>]
-    let ``statement: single param lambda``() =
+    let ``expression: single param lambda``() =
         let expr = ``as`` "float" (ident "b")
         let s = ``_ =>`` "b" expr 
         let m = return_from_arrow_method "Func<int, float>" s
@@ -447,7 +507,7 @@ module StatementTests =
 
 
     [<Test>]
-    let ``statement: multi param lambda``() =
+    let ``expression: multi param lambda``() =
         let expr = ``as`` "float" (ident "b")
         let s = ``() =>`` ["a"; "b"] expr 
         let m = return_from_arrow_method "Func<int, float>" s
