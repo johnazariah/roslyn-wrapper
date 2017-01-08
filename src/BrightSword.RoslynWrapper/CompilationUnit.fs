@@ -8,13 +8,13 @@ module CompilationUnit =
     open Microsoft.CodeAnalysis
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
-    
+
     let private addMembers members (cu : CompilationUnitSyntax) =
         members
         |> (Seq.toArray >> SyntaxFactory.List)
         |> cu.WithMembers
 
-    /// This function creates a 'compilation unit' given a sequence of members. 
+    /// This function creates a 'compilation unit' given a sequence of members.
     let ``compilation unit`` members =
         SyntaxFactory.CompilationUnit()
         |> addMembers members

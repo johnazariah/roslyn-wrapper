@@ -10,19 +10,19 @@ module MethodDeclaration =
     open Microsoft.CodeAnalysis.CSharp.Syntax
 
     let private setModifiers modifiers (md : MethodDeclarationSyntax) =
-        modifiers 
+        modifiers
         |> Seq.map SyntaxFactory.Token
-        |> SyntaxFactory.TokenList 
-        |> md.WithModifiers 
+        |> SyntaxFactory.TokenList
+        |> md.WithModifiers
 
     let private setParameterList parameters (md : MethodDeclarationSyntax) =
-        parameters 
+        parameters
         |> Seq.map (fun (paramName, paramType) -> ``param`` paramName ``of`` paramType)
         |> (SyntaxFactory.SeparatedList >> SyntaxFactory.ParameterList)
         |> md.WithParameterList
-    
+
     let private setExpressionBody methodBody (md : MethodDeclarationSyntax) =
-        methodBody 
+        methodBody
         |> Option.fold (fun (_md : MethodDeclarationSyntax) _mb -> _md.WithExpressionBody _mb) md
 
     let private setBodyBlock bodyBlockStatements (md : MethodDeclarationSyntax) =
@@ -33,13 +33,13 @@ module MethodDeclaration =
     let private setTypeParameters typeParameters (md : MethodDeclarationSyntax) =
         if typeParameters |> Seq.isEmpty then md
         else
-        typeParameters 
+        typeParameters
         |> Seq.map (SyntaxFactory.Identifier >> SyntaxFactory.TypeParameter)
         |> (SyntaxFactory.SeparatedList >> SyntaxFactory.TypeParameterList)
         |> md.WithTypeParameterList
 
     let private addClosingSemicolon (md : MethodDeclarationSyntax) =
-        SyntaxKind.SemicolonToken |> SyntaxFactory.Token 
+        SyntaxKind.SemicolonToken |> SyntaxFactory.Token
         |> md.WithSemicolonToken
 
     let ``arrow_method`` methodType methodName ``<<`` methodTypeParameters ``>>``
@@ -56,7 +56,7 @@ module MethodDeclaration =
     let ``method`` methodType methodName ``<<`` methodTypeParameters ``>>``
             ``(`` methodParams ``)``
             modifiers
-            ``{`` 
+            ``{``
                 bodyBlockStatements
             ``}`` =
         (methodType |> ident,  methodName |> SyntaxFactory.Identifier) |> SyntaxFactory.MethodDeclaration

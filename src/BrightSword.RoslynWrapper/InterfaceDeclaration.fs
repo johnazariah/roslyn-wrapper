@@ -8,11 +8,11 @@ module InterfaceDeclaration =
     open Microsoft.CodeAnalysis
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
-    
-    let private setModifiers modifiers (cd : InterfaceDeclarationSyntax)  = 
-        modifiers 
-        |> Seq.map SyntaxFactory.Token 
-        |> SyntaxFactory.TokenList 
+
+    let private setModifiers modifiers (cd : InterfaceDeclarationSyntax)  =
+        modifiers
+        |> Seq.map SyntaxFactory.Token
+        |> SyntaxFactory.TokenList
         |> cd.WithModifiers
 
     let private setMembers members (cd : InterfaceDeclarationSyntax) =
@@ -20,7 +20,7 @@ module InterfaceDeclaration =
 
     let private setBases bases (cd : InterfaceDeclarationSyntax) =
         if bases |> Seq.isEmpty then cd else
-        bases 
+        bases
         |> Seq.map (ident >> SyntaxFactory.SimpleBaseType >> (fun b -> b :> BaseTypeSyntax))
         |> (SyntaxFactory.SeparatedList >> SyntaxFactory.BaseList)
         |> cd.WithBaseList
@@ -28,7 +28,7 @@ module InterfaceDeclaration =
     let private setTypeParameters typeParameters (cd : InterfaceDeclarationSyntax) =
         if typeParameters |> Seq.isEmpty then cd
         else
-        typeParameters 
+        typeParameters
         |> Seq.map (SyntaxFactory.Identifier >> SyntaxFactory.TypeParameter)
         |> (SyntaxFactory.SeparatedList >> SyntaxFactory.TypeParameterList)
         |> cd.WithTypeParameterList
@@ -38,11 +38,9 @@ module InterfaceDeclaration =
             modifiers
             ``{``
                  members
-            ``}`` =             
+            ``}`` =
             interfaceName |> (SyntaxFactory.Identifier >> SyntaxFactory.InterfaceDeclaration)
             |> setTypeParameters typeParameters
             |> setBases baseInterfaces
             |> setModifiers modifiers
             |> setMembers members
-
-

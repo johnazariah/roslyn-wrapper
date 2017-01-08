@@ -13,23 +13,21 @@ module FieldDeclaration =
         initializer
         |> Option.fold (fun (_vd : VariableDeclaratorSyntax) _in -> _vd.WithInitializer _in) vd
 
-    let private setFieldVariable fieldName fieldInitializer (vd : VariableDeclarationSyntax) = 
+    let private setFieldVariable fieldName fieldInitializer (vd : VariableDeclarationSyntax) =
         [ fieldName ]
         |> Seq.map (SyntaxFactory.Identifier >> SyntaxFactory.VariableDeclarator >> setVariableInitializer fieldInitializer)
         |> SyntaxFactory.SeparatedList
         |> vd.WithVariables
 
-    let private setModifiers modifiers (fd : FieldDeclarationSyntax)  = 
-        modifiers 
+    let private setModifiers modifiers (fd : FieldDeclarationSyntax)  =
+        modifiers
         |> Seq.map SyntaxFactory.Token
-        |> SyntaxFactory.TokenList 
+        |> SyntaxFactory.TokenList
         |> fd.WithModifiers
 
-    let ``field`` fieldType fieldName modifiers fieldInitializer = 
-        fieldType 
+    let ``field`` fieldType fieldName modifiers fieldInitializer =
+        fieldType
         |> (ident >> SyntaxFactory.VariableDeclaration)
-        |> setFieldVariable fieldName fieldInitializer 
+        |> setFieldVariable fieldName fieldInitializer
         |> SyntaxFactory.FieldDeclaration
         |> setModifiers modifiers
-
-

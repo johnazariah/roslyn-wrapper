@@ -11,19 +11,17 @@ module LocalDeclaration =
         initializer
         |> Option.fold (fun (_vd : VariableDeclaratorSyntax) _in -> _vd.WithInitializer _in) vd
 
-    let private setVariableDeclarator localName localInitializer (vd : VariableDeclarationSyntax) = 
+    let private setVariableDeclarator localName localInitializer (vd : VariableDeclarationSyntax) =
         [ localName ]
         |> Seq.map (SyntaxFactory.Identifier >> SyntaxFactory.VariableDeclarator >> setVariableInitializer localInitializer)
         |> SyntaxFactory.SeparatedList
         |> vd.WithVariables
 
-    let ``typed var`` localType localName localInitializer = 
-        localType 
+    let ``typed var`` localType localName localInitializer =
+        localType
         |> (ident >> SyntaxFactory.VariableDeclaration)
-        |> setVariableDeclarator localName localInitializer 
+        |> setVariableDeclarator localName localInitializer
         |> SyntaxFactory.LocalDeclarationStatement
 
-    let ``var`` localName localInitializer = 
+    let ``var`` localName localInitializer =
         ``typed var`` "var" localName (Some localInitializer)
-
-

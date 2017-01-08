@@ -10,20 +10,20 @@ module PropertyDeclaration =
     open Microsoft.CodeAnalysis.CSharp.Syntax
 
     let private setModifiers modifiers (pd : PropertyDeclarationSyntax) =
-        modifiers 
+        modifiers
         |> Seq.map SyntaxFactory.Token
-        |> SyntaxFactory.TokenList 
+        |> SyntaxFactory.TokenList
         |> pd.WithModifiers
-        
+
     let private setGetAccessor (pd : PropertyDeclarationSyntax) =
-        SyntaxKind.GetAccessorDeclaration 
-        |> SyntaxFactory.AccessorDeclaration 
+        SyntaxKind.GetAccessorDeclaration
+        |> SyntaxFactory.AccessorDeclaration
         |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SyntaxFactory.Token))
         |> (fun ad -> pd.AddAccessorListAccessors ad)
 
     let private setSetAccessor (pd : PropertyDeclarationSyntax) =
-        SyntaxKind.SetAccessorDeclaration 
-        |> SyntaxFactory.AccessorDeclaration 
+        SyntaxKind.SetAccessorDeclaration
+        |> SyntaxFactory.AccessorDeclaration
         |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SyntaxFactory.Token))
         |> (fun ad -> pd.AddAccessorListAccessors ad)
 
@@ -39,5 +39,3 @@ module PropertyDeclaration =
         |> SyntaxFactory.PropertyDeclaration
         |> setModifiers modifiers
         |> setGetAccessor
-    
-

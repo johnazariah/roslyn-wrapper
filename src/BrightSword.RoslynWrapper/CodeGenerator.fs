@@ -1,7 +1,7 @@
 ﻿namespace BrightSword.RoslynWrapper
 
 /// <summary>
-/// This is the entry point to the Roslyn Wrapper. 
+/// This is the entry point to the Roslyn Wrapper.
 /// Pass a <see cref="CompilationUnitSyntax" /> to <see cref="generateCodeToString"/> to get string with the generated code.
 /// </summary>
 [<AutoOpen>]
@@ -16,4 +16,3 @@ module CodeGenerator =
         use sw = new System.IO.StringWriter (sb)
         fn.WriteTo(sw)
         sb.ToString()
-

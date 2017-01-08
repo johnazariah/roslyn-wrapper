@@ -46,4 +46,3 @@ module ConstructorDeclaration =
         |> setParameterList parameters
         |> setModifiers modifiers
         |> setBodyBlock bodyBlockStatements
-

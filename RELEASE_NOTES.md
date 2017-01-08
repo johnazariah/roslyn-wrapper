@@ -1,3 +1,6 @@
+#### 1.0.3 - January 7 2017
+* Strong-Named
+
 #### 1.0.2 - December 31 2016
 * Clean-up and Document
     * The following inline functions generate expressions as follows:

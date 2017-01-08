@@ -8,16 +8,16 @@ module NamespaceDeclaration =
     open Microsoft.CodeAnalysis
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
-    
+
     let private setUsings usings (nd : NamespaceDeclarationSyntax) =
         usings @ ["System"]
         |> Set.ofList |> Set.toSeq
-        |> Seq.map (ident >> SyntaxFactory.UsingDirective) 
+        |> Seq.map (ident >> SyntaxFactory.UsingDirective)
         |> SyntaxFactory.List
         |> nd.WithUsings
 
     let private setMembers members (nd : NamespaceDeclarationSyntax) =
-        members 
+        members
         |> (Seq.toArray >> SyntaxFactory.List)
         |> nd.WithMembers
 
@@ -55,13 +55,12 @@ module NamespaceDeclaration =
     /// * The `System` namespace is always included by default
     /// * You may pass a sequence of these namespaces to ``compilation unit`` and generate code from it
     ///
-    let ``namespace`` namespaceName 
-            ``{`` 
+    let ``namespace`` namespaceName
+            ``{``
                 usings
                 members
             ``}`` =
-        namespaceName 
+        namespaceName
         |> (ident >> SyntaxFactory.NamespaceDeclaration)
         |> setUsings usings
         |> setMembers members
-

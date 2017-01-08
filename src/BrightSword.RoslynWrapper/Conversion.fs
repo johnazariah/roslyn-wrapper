@@ -45,4 +45,3 @@ module Conversion =
         |> setModifiers modifiers
         |> setExpressionBody initializer
         |> addClosingSemicolon
-

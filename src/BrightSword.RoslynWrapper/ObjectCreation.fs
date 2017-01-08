@@ -19,4 +19,3 @@ module ObjectCreation =
         genericName
         |> SyntaxFactory.ObjectCreationExpression
         |> setArguments arguments
-
