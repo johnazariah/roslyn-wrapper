@@ -400,7 +400,7 @@ module StatementTests =
 
     [<Test>]
     let ``expression: member?.access``() =
-        let ma = (ident "System") <|?.|> (ident "Console") <?.> ("WriteLine", [ literal "Hello, World!" ])
+        let ma = (ident "System") <|?.|> (ident "Console") <?.> (ident "WriteLine", [ literal "Hello, World!" ])
         let m = host_in_method "int" [ statement ma ]
         let actual = to_class_members_code [m]
         let expected = @"namespace N

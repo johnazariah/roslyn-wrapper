@@ -61,7 +61,7 @@ module Expressions =
     // left?.right(args)
     let (<?.>) left (right, args) =
         let member_binding_expr = 
-            (ident >> SyntaxFactory.MemberBindingExpression) right :> ExpressionSyntax
+            SyntaxFactory.MemberBindingExpression right :> ExpressionSyntax
 
         let target = ``invoke`` member_binding_expr ``(`` args ``)``
         SyntaxFactory.ConditionalAccessExpression (left, target)
