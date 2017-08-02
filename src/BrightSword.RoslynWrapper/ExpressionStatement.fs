@@ -45,7 +45,7 @@ module Expressions =
 
     // left.right
     let (<|.|>) left right = 
-        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, left, (ident right))
+        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, left, right)
         :> ExpressionSyntax
 
     // left.right(args)
@@ -54,7 +54,7 @@ module Expressions =
 
     // left?.right
     let (<|?.|>) left right = 
-        let member_binding_expr = (ident >> SyntaxFactory.MemberBindingExpression) right
+        let member_binding_expr = SyntaxFactory.MemberBindingExpression right
         SyntaxFactory.ConditionalAccessExpression (left, member_binding_expr)
         :> ExpressionSyntax
 
