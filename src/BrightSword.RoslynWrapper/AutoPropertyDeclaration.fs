@@ -51,17 +51,18 @@ module PropertyDeclaration =
         |> setModifiers modifiers
         |> setGetAccessor getBodyBlockStatements
         
-    let ``property`` propertyType propertyName modifiers         
-            ``{``
-                getBodyBlockStatements
-                setBodyBlockStatements
-            ``}`` =
+    let ``property`` propertyType propertyName modifiers
+            ``get``       
+                    getBodyBlockStatements
+            ``set``
+                    setBodyBlockStatements
+            =
         createPropertyDeclaration propertyType propertyName modifiers (Some getBodyBlockStatements) (Some setBodyBlockStatements)
         
     let ``property-get`` propertyType propertyName modifiers         
-            ``{``
-                getBodyBlockStatements
-            ``}`` =
+            ``get``       
+                    getBodyBlockStatements
+            =
         createGetPropertyDeclaration propertyType propertyName modifiers (Some getBodyBlockStatements)
 
     let ``prop`` propertyType propertyName modifiers =
