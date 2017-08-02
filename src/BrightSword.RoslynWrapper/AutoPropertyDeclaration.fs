@@ -15,27 +15,57 @@ module PropertyDeclaration =
         |> SyntaxFactory.TokenList
         |> pd.WithModifiers
 
-    let private setGetAccessor (pd : PropertyDeclarationSyntax) =
+    let private setBodyBlock bodyBlockStatements (ad : AccessorDeclarationSyntax) =    
+        match bodyBlockStatements with
+        | Some body ->
+            body
+            |> (Seq.toArray >> SyntaxFactory.Block)
+            |> ad.WithBody
+        | None ->
+            SyntaxKind.SemicolonToken
+            |> SyntaxFactory.Token
+            |> ad.WithSemicolonToken
+
+    let private setGetAccessor bodyBlockStatements (pd : PropertyDeclarationSyntax) =
         SyntaxKind.GetAccessorDeclaration
         |> SyntaxFactory.AccessorDeclaration
-        |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SyntaxFactory.Token))
+        |> setBodyBlock bodyBlockStatements
         |> (fun ad -> pd.AddAccessorListAccessors ad)
 
-    let private setSetAccessor (pd : PropertyDeclarationSyntax) =
+    let private setSetAccessor bodyBlockStatements (pd : PropertyDeclarationSyntax) =
         SyntaxKind.SetAccessorDeclaration
         |> SyntaxFactory.AccessorDeclaration
-        |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SyntaxFactory.Token))
+        |> setBodyBlock bodyBlockStatements
         |> (fun ad -> pd.AddAccessorListAccessors ad)
-
-    let ``auto-prop`` propertyType propertyName modifiers =
+        
+    let private createPropertyDeclaration propertyType propertyName modifiers getBodyBlockStatements setBodyBlockStatements =
         (propertyType |> ident, propertyName |> SyntaxFactory.Identifier)
         |> SyntaxFactory.PropertyDeclaration
         |> setModifiers modifiers
-        |> setGetAccessor
-        |> setSetAccessor
+        |> setGetAccessor getBodyBlockStatements
+        |> setSetAccessor setBodyBlockStatements
 
-    let ``auto-propg`` propertyType propertyName modifiers =
+    let private createGetPropertyDeclaration propertyType propertyName modifiers getBodyBlockStatements =
         (propertyType |> ident, propertyName |> SyntaxFactory.Identifier)
         |> SyntaxFactory.PropertyDeclaration
         |> setModifiers modifiers
-        |> setGetAccessor
+        |> setGetAccessor getBodyBlockStatements
+        
+    let ``property`` propertyType propertyName modifiers         
+            ``{``
+                getBodyBlockStatements
+                setBodyBlockStatements
+            ``}`` =
+        createPropertyDeclaration propertyType propertyName modifiers (Some getBodyBlockStatements) (Some setBodyBlockStatements)
+        
+    let ``property-get`` propertyType propertyName modifiers         
+            ``{``
+                getBodyBlockStatements
+            ``}`` =
+        createGetPropertyDeclaration propertyType propertyName modifiers (Some getBodyBlockStatements)
+
+    let ``prop`` propertyType propertyName modifiers =
+        createPropertyDeclaration propertyType propertyName modifiers None None
+
+    let ``propg`` propertyType propertyName modifiers =
+        createGetPropertyDeclaration propertyType propertyName modifiers None

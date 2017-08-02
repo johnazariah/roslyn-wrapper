@@ -5,9 +5,75 @@ open NUnit.Framework
 open BrightSword.RoslynWrapper
 
 module AutoPropertyTests =
+
+    [<Test>]
+    let ``property: read``() =
+        let m = 
+            ``property-get`` "string" "Name" [ ``public`` ] 
+                ``{``
+                    [
+                        ``return`` (Some (literal ""))
+                    ]            
+                ``}``
+
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        public string Name
+        {
+            get
+            {
+                return """";
+            }
+        }
+    }
+}"
+        are_equal expected actual
+
+        
+    [<Test>]
+    let ``property: readwrite``() =
+        let m = 
+            ``property`` "string" "Name" [ ``public`` ] 
+                ``{``
+                    [
+                        ``return`` (Some (literal "hardcoded"))
+                    ]            
+                    [
+                        statement ((ident "test") <-- (ident "value"))
+                    ]            
+                ``}``
+
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        public string Name
+        {
+            get
+            {
+                return ""hardcoded"";
+            }
+
+            set
+            {
+                test = value;
+            }
+        }
+    }
+}"
+        are_equal expected actual
+
     [<Test>]
     let ``auto property: read-only``() =
-        let m = ``auto-propg`` "string" "Name" [ ``public`` ]
+        let m = ``propg`` "string" "Name" [ ``public`` ]
 
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -26,7 +92,7 @@ module AutoPropertyTests =
 
     [<Test>]
     let ``auto property: read-write``() =
-        let m = ``auto-prop`` "string" "Name" [ ``public`` ]
+        let m = ``prop`` "string" "Name" [ ``public`` ]
 
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -43,5 +109,3 @@ module AutoPropertyTests =
     }
 }"
         are_equal expected actual
-
-
