@@ -27,14 +27,14 @@ module PropertyDeclaration =
         |> (fun ad -> ad.WithSemicolonToken(SyntaxKind.SemicolonToken |> SyntaxFactory.Token))
         |> (fun ad -> pd.AddAccessorListAccessors ad)
 
-    let ``prop`` propertyType propertyName modifiers =
+    let ``auto-prop`` propertyType propertyName modifiers =
         (propertyType |> ident, propertyName |> SyntaxFactory.Identifier)
         |> SyntaxFactory.PropertyDeclaration
         |> setModifiers modifiers
         |> setGetAccessor
         |> setSetAccessor
 
-    let ``propg`` propertyType propertyName modifiers =
+    let ``auto-propg`` propertyType propertyName modifiers =
         (propertyType |> ident, propertyName |> SyntaxFactory.Identifier)
         |> SyntaxFactory.PropertyDeclaration
         |> setModifiers modifiers

@@ -7,7 +7,7 @@ open BrightSword.RoslynWrapper
 module AutoPropertyTests =
     [<Test>]
     let ``auto property: read-only``() =
-        let m = ``propg`` "string" "Name" [ ``public`` ]
+        let m = ``auto-propg`` "string" "Name" [ ``public`` ]
 
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -26,7 +26,7 @@ module AutoPropertyTests =
 
     [<Test>]
     let ``auto property: read-write``() =
-        let m = ``prop`` "string" "Name" [ ``public`` ]
+        let m = ``auto-prop`` "string" "Name" [ ``public`` ]
 
         let actual = to_class_members_code [m]
         let expected = @"namespace N
