@@ -17,7 +17,7 @@ module LocalDeclaration =
         |> SyntaxFactory.SeparatedList
         |> vd.WithVariables
     
-    let setArrayRank (at:ArrayTypeSyntax) =
+    let private setArrayRank (at:ArrayTypeSyntax) =
         [
             [ (SyntaxFactory.OmittedArraySizeExpression()) :> ExpressionSyntax ]
             |> SyntaxFactory.SeparatedList
@@ -39,7 +39,7 @@ module LocalDeclaration =
         localType
         |> ident 
         |> SyntaxFactory.ArrayType
-        |> setRank    
+        |> setArrayRank    
         |> SyntaxFactory.VariableDeclaration
         |> setVariableDeclarator localName localInitializer
         |> SyntaxFactory.LocalDeclarationStatement

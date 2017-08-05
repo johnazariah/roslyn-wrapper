@@ -9,7 +9,7 @@ module ArrayCreation =
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax    
 
-    let setRank (at:ArrayTypeSyntax) =
+    let private setRank (at:ArrayTypeSyntax) =
         [
             [ (SyntaxFactory.OmittedArraySizeExpression()) :> ExpressionSyntax ]
             |> SyntaxFactory.SeparatedList
