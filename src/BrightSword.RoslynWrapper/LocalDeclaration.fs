@@ -16,6 +16,15 @@ module LocalDeclaration =
         |> Seq.map (SyntaxFactory.Identifier >> SyntaxFactory.VariableDeclarator >> setVariableInitializer localInitializer)
         |> SyntaxFactory.SeparatedList
         |> vd.WithVariables
+    
+    let setArrayRank (at:ArrayTypeSyntax) =
+        [
+            [ (SyntaxFactory.OmittedArraySizeExpression()) :> ExpressionSyntax ]
+            |> SyntaxFactory.SeparatedList
+            |> SyntaxFactory.ArrayRankSpecifier
+        ]
+        |> SyntaxFactory.List
+        |> at.WithRankSpecifiers           
 
     let ``typed var`` localType localName localInitializer =
         localType
@@ -25,3 +34,12 @@ module LocalDeclaration =
 
     let ``var`` localName localInitializer =
         ``typed var`` "var" localName (Some localInitializer)
+    
+    let ``array`` localType localName localInitializer =
+        localType
+        |> ident 
+        |> SyntaxFactory.ArrayType
+        |> setRank    
+        |> SyntaxFactory.VariableDeclaration
+        |> setVariableDeclarator localName localInitializer
+        |> SyntaxFactory.LocalDeclarationStatement

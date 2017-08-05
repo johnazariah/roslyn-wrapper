@@ -11,9 +11,9 @@ module AutoPropertyTests =
         let m = 
             ``property-get`` "string" "Name" [ ``public`` ] 
                 ``get``
-                    [
-                        ``return`` (Some (literal ""))
-                    ]
+                [
+                    ``return`` (Some (literal ""))
+                ]
 
         let actual = to_class_members_code [m]
         let expected = @"namespace N
