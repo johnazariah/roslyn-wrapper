@@ -102,6 +102,46 @@ module MethodTests =
         are_equal expected actual
 
     [<Test>]
+    let ``arrow method: with array parameter``() =
+        let m = 
+            ``arrow_method`` "void" "M" ``<<`` ["T"] ``>>`` ``(`` [ ("thing", (``array type`` "object")) ] ``)`` 
+                [``public``; ``abstract``]
+                None
+
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        public abstract void M<T>(object[] thing);
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``arrow method: with two parameters``() =
+        let p1 = ("p1", (``type`` "string")) 
+        let p2 = ("p2", (``array type`` "object"))
+        let m = 
+            ``arrow_method`` "void" "M" ``<<`` ["T"] ``>>`` ``(`` [ p1;p2 ] ``)`` 
+                [``public``; ``abstract``]
+                None
+
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        public abstract void M<T>(string p1, object[] p2);
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
     let ``method: with body``() =
         let m = 
             ``method`` "void" "M" ``<<`` ["T"] ``>>`` ``(`` [ ("thing", (``type`` "object")) ] ``)`` 

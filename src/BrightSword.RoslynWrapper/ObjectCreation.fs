@@ -19,3 +19,14 @@ module ObjectCreation =
         genericName
         |> SyntaxFactory.ObjectCreationExpression
         |> setArguments arguments
+
+        
+    let ``new array`` arrayType arrayElements = 
+        let array = arrayType |> ``array type`` :?> ArrayTypeSyntax
+        let elems =
+            arrayElements 
+            |> List.map (fun x -> x :> ExpressionSyntax)
+            |> SyntaxFactory.SeparatedList
+            |> (SyntaxFactory.InitializerExpression SyntaxKind.ArrayInitializerExpression).WithExpressions
+        (array,elems)
+        |>SyntaxFactory.ArrayCreationExpression 

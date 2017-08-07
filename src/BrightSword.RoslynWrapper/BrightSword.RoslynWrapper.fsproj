@@ -73,7 +73,6 @@
     <Compile Include="ExpressionStatement.fs" />
     <Compile Include="GenericName.fs" />
     <Compile Include="ObjectCreation.fs" />
-    <Compile Include="ArrayCreation.fs" />
     <Compile Include="Conversion.fs" />
     <Compile Include="Equality.fs" />
     <Compile Include="FieldDeclaration.fs" />
