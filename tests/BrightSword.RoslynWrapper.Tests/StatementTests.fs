@@ -543,3 +543,35 @@ module StatementTests =
     }
 }"
         are_equal expected actual
+        
+    [<Test>]
+    let ``expression: numerics``() =
+        let ss = 
+            [
+                (ident "a") <-- ((literal 1) <+> (literal 2))
+                (ident "b") <-- ((literal 1) <-> (literal 3))
+                (ident "c") <-- ((literal 1) <*> (literal 4))
+                (ident "d") <-- ((literal 1) </> (literal 5))
+                (ident "e") <-- ((literal 1) <%> (literal 6))
+            ]
+            |> Seq.map statement
+
+        let m = host_in_method "void" ss
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal void Host()
+        {
+            a = 1 + 2;
+            b = 1 - 3;
+            c = 1 * 4;
+            d = 1 / 5;
+            e = 1 % 6;
+        }
+    }
+}"
+        are_equal expected actual

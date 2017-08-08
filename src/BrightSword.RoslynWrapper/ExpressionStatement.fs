@@ -66,6 +66,31 @@ module Expressions =
         let target = ``invoke`` member_binding_expr ``(`` args ``)``
         SyntaxFactory.ConditionalAccessExpression (left, target)
         :> ExpressionSyntax
+        
+    // left + right
+    let (<+>) left right =
+        (SyntaxKind.AddExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    // left - right
+    let (<->) left right =
+        (SyntaxKind.SubtractExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    // left * right
+    let (<*>) left right =
+        (SyntaxKind.MultiplyExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    // left / right
+    let (</>) left right =
+        (SyntaxKind.DivideExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+        
+    // left % right
+    let (<%>) left right =
+        (SyntaxKind.ModuloExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
 
     // left == right
     let (<==>) left right =
