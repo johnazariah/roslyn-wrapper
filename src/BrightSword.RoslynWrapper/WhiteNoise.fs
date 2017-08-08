@@ -16,6 +16,8 @@ module WhiteNoise =
     let ``)`` = None
 
     let ``of`` = None
+    let ``get`` = None
+    let ``set`` = None
 
     let ``private`` = SyntaxKind.PrivateKeyword
     let ``protected`` = SyntaxKind.ProtectedKeyword

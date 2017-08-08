@@ -16,7 +16,7 @@ module LocalDeclaration =
         |> Seq.map (SyntaxFactory.Identifier >> SyntaxFactory.VariableDeclarator >> setVariableInitializer localInitializer)
         |> SyntaxFactory.SeparatedList
         |> vd.WithVariables
-
+    
     let ``typed var`` localType localName localInitializer =
         localType
         |> (ident >> SyntaxFactory.VariableDeclaration)
@@ -25,3 +25,4 @@ module LocalDeclaration =
 
     let ``var`` localName localInitializer =
         ``typed var`` "var" localName (Some localInitializer)
+    

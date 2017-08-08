@@ -45,7 +45,7 @@ module Expressions =
 
     // left.right
     let (<|.|>) left right = 
-        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, left, (ident right))
+        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, left, right)
         :> ExpressionSyntax
 
     // left.right(args)
@@ -54,17 +54,42 @@ module Expressions =
 
     // left?.right
     let (<|?.|>) left right = 
-        let member_binding_expr = (ident >> SyntaxFactory.MemberBindingExpression) right
+        let member_binding_expr = SyntaxFactory.MemberBindingExpression right
         SyntaxFactory.ConditionalAccessExpression (left, member_binding_expr)
         :> ExpressionSyntax
 
     // left?.right(args)
     let (<?.>) left (right, args) =
         let member_binding_expr = 
-            (ident >> SyntaxFactory.MemberBindingExpression) right :> ExpressionSyntax
+            SyntaxFactory.MemberBindingExpression right :> ExpressionSyntax
 
         let target = ``invoke`` member_binding_expr ``(`` args ``)``
         SyntaxFactory.ConditionalAccessExpression (left, target)
+        :> ExpressionSyntax
+        
+    // left + right
+    let (<+>) left right =
+        (SyntaxKind.AddExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    // left - right
+    let (<->) left right =
+        (SyntaxKind.SubtractExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    // left * right
+    let (<*>) left right =
+        (SyntaxKind.MultiplyExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+
+    // left / right
+    let (</>) left right =
+        (SyntaxKind.DivideExpression, left, right) |> SyntaxFactory.BinaryExpression
+        :> ExpressionSyntax
+        
+    // left % right
+    let (<%>) left right =
+        (SyntaxKind.ModuloExpression, left, right) |> SyntaxFactory.BinaryExpression
         :> ExpressionSyntax
 
     // left == right

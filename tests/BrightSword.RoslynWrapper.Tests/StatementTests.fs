@@ -381,7 +381,7 @@ module StatementTests =
 
     [<Test>]
     let ``expression: member.access``() =
-        let ma = (ident "System") <|.|> "Console" <.> ("WriteLine", [ literal "Hello, World!" ])
+        let ma = (ident "System") <|.|> (ident "Console") <.> (ident "WriteLine", [ literal "Hello, World!" ])
         let m = host_in_method "int" [ statement ma ]
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -400,7 +400,7 @@ module StatementTests =
 
     [<Test>]
     let ``expression: member?.access``() =
-        let ma = (ident "System") <|?.|> "Console" <?.> ("WriteLine", [ literal "Hello, World!" ])
+        let ma = (ident "System") <|?.|> (ident "Console") <?.> (ident "WriteLine", [ literal "Hello, World!" ])
         let m = host_in_method "int" [ statement ma ]
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -419,7 +419,7 @@ module StatementTests =
 
     [<Test>]
     let ``expression: async - await``() =
-        let ma = (ident "System") <|.|> "Console" <.> ("WriteLine", [ literal "Hello, World!" ])
+        let ma = (ident "System") <|.|> (ident "Console") <.> (ident "WriteLine", [ literal "Hello, World!" ])
         let s = ``await`` ma |> statement
         let m =
             ``method`` "int" "Host" ``<<`` [] ``>>`` ``(`` [] ``)``
@@ -437,6 +437,27 @@ module StatementTests =
         protected internal async int Host()
         {
             await System.Console.WriteLine(""Hello, World!"");
+        }
+    }
+}"
+        are_equal expected actual
+
+    [<Test>]
+    let ``expression: member.access<generic>``() =
+        let gen1 = ``generic type`` "Task" ``<<`` [ "int" ] ``>>``
+        let gen2 = ``generic type`` "Run" ``<<`` [ "string" ] ``>>``
+        let ma = (ident "System") <|.|> gen1 <.> (gen2, [ literal "Hello, World!" ])
+        let m = host_in_method "int" [ statement ma ]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal int Host()
+        {
+            System.Task<int>.Run<string>(""Hello, World!"");
         }
     }
 }"
@@ -519,6 +540,38 @@ module StatementTests =
     public class C
     {
         protected internal Func<int, float> Host() => (a, b) => b as float;
+    }
+}"
+        are_equal expected actual
+        
+    [<Test>]
+    let ``expression: numerics``() =
+        let ss = 
+            [
+                (ident "a") <-- ((literal 1) <+> (literal 2))
+                (ident "b") <-- ((literal 1) <-> (literal 3))
+                (ident "c") <-- ((literal 1) <*> (literal 4))
+                (ident "d") <-- ((literal 1) </> (literal 5))
+                (ident "e") <-- ((literal 1) <%> (literal 6))
+            ]
+            |> Seq.map statement
+
+        let m = host_in_method "void" ss
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal void Host()
+        {
+            a = 1 + 2;
+            b = 1 - 3;
+            c = 1 * 4;
+            d = 1 / 5;
+            e = 1 % 6;
+        }
     }
 }"
         are_equal expected actual

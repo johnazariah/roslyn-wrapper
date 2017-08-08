@@ -8,6 +8,15 @@ module GenericName =
     open Microsoft.CodeAnalysis
     open Microsoft.CodeAnalysis.CSharp
     open Microsoft.CodeAnalysis.CSharp.Syntax
+    
+    let private setArrayRank (at:ArrayTypeSyntax) =
+        [
+            [ (SyntaxFactory.OmittedArraySizeExpression()) :> ExpressionSyntax ]
+            |> SyntaxFactory.SeparatedList
+            |> SyntaxFactory.ArrayRankSpecifier
+        ]
+        |> SyntaxFactory.List
+        |> at.WithRankSpecifiers           
 
     let private setTypeArgumentList typeArguments (gn : GenericNameSyntax) =
         typeArguments
@@ -21,7 +30,7 @@ module GenericName =
             | [ n ] -> n |> ident :> NameSyntax
             | [ p1 ; p2 ] -> (p2, p1) |> mapTuple2 ident |> SyntaxFactory.QualifiedName :> NameSyntax
             | p1 :: rest -> (toQualifiedNameImpl rest, p1 |> ident) |> SyntaxFactory.QualifiedName :> NameSyntax
-        in parts |> List.rev |> toQualifiedNameImpl
+        in parts |> List.rev |> toQualifiedNameImpl :> TypeSyntax
 
     type SimpleType = SimpleType with
         static member ($) (_ : SimpleType, x : string) = simpleType [x]
@@ -33,6 +42,13 @@ module GenericName =
         typeName
         |> (SyntaxFactory.Identifier >> SyntaxFactory.GenericName)
         |> setTypeArgumentList typeArguments
+        
+    let ``array type`` arrayType =
+        arrayType
+        |> ident
+        |> SyntaxFactory.ArrayType
+        |> setArrayRank
+        :> TypeSyntax
 
-    let ``type name`` (typeSyntax : NameSyntax) = typeSyntax.ToFullString ()
+    let ``type name`` (typeSyntax : TypeSyntax) = typeSyntax.ToFullString ()
     
