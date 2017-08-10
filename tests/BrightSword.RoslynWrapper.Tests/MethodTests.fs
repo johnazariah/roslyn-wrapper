@@ -125,7 +125,7 @@ module MethodTests =
         let p1 = ("p1", (``type`` "string")) 
         let p2 = ("p2", (``array type`` "object"))
         let m = 
-            ``//`` "Method comment" <|
+            ``//`` [ "Method comment" ] <|
             ``arrow_method`` "void" "M" ``<<`` ["T"] ``>>`` ``(`` [ p1;p2 ] ``)`` 
                 [``public``; ``abstract``]
                 None
@@ -150,7 +150,11 @@ module MethodTests =
                 [``private``; ``static``]
                 ``{``
                     [
-                        ``//`` "Some comment" <|
+                        ``//`` 
+                            [ 
+                                "First line"
+                                "Second line" 
+                            ] <|
                         ``return`` None
                     ]
                 ``}``
@@ -164,7 +168,8 @@ module MethodTests =
     {
         private static void M<T>(object thing)
         {
-            // Some comment
+            // First line
+            // Second line
             return;
         }
     }
