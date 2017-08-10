@@ -132,6 +132,12 @@ module Expressions =
     let ``((`` expr ``))`` = 
         SyntaxFactory.ParenthesizedExpression expr
         :> ExpressionSyntax
+
+    // single line comment
+    let ``//`` comment node =
+        "// " + comment
+        |> SyntaxFactory.Comment
+        |> node.WithLeadingTrivia
         
     let private setArrayArguments (methodArguments : ArgumentSyntax seq) (ie : ElementAccessExpressionSyntax) =
         methodArguments

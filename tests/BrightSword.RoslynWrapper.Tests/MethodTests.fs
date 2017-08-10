@@ -125,10 +125,11 @@ module MethodTests =
         let p1 = ("p1", (``type`` "string")) 
         let p2 = ("p2", (``array type`` "object"))
         let m = 
+            ``//`` "Method comment" <|
             ``arrow_method`` "void" "M" ``<<`` ["T"] ``>>`` ``(`` [ p1;p2 ] ``)`` 
                 [``public``; ``abstract``]
                 None
-
+                
         let actual = to_class_members_code [m]
         let expected = @"namespace N
 {
@@ -136,6 +137,7 @@ module MethodTests =
 
     public class C
     {
+        // Method comment
         public abstract void M<T>(string p1, object[] p2);
     }
 }"
@@ -148,6 +150,7 @@ module MethodTests =
                 [``private``; ``static``]
                 ``{``
                     [
+                        ``//`` "Some comment" <|
                         ``return`` None
                     ]
                 ``}``
@@ -161,6 +164,7 @@ module MethodTests =
     {
         private static void M<T>(object thing)
         {
+            // Some comment
             return;
         }
     }
