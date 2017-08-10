@@ -136,8 +136,10 @@ module Expressions =
     // single line comment(s)
     let ``//`` comments node =
         comments
-        |> List.map (fun l -> "// " + l)
-        |> List.map SyntaxFactory.Comment
+        |> List.map  (fun l -> "// " + l)
+        |> List.map  SyntaxFactory.Comment
+        |> List.map  (fun c -> [c; (SyntaxFactory.EndOfLine "")])
+        |> List.fold (fun all syntax -> all @ syntax) []
         |> node.WithLeadingTrivia
         
     let private setArrayArguments (methodArguments : ArgumentSyntax seq) (ie : ElementAccessExpressionSyntax) =
