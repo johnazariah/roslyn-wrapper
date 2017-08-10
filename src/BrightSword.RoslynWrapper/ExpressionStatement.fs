@@ -133,7 +133,7 @@ module Expressions =
         SyntaxFactory.ParenthesizedExpression expr
         :> ExpressionSyntax
 
-    // single line comment
+    // single line comment(s)
     let ``//`` comment node =
         comment
         |> List.map (fun l -> "// " + l)
