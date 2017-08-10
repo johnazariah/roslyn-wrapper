@@ -12,7 +12,7 @@ module Expressions =
 
     // (targetType) expression        
     let ``cast`` targetType expression = 
-        SyntaxFactory.CastExpression (ident targetType, expression)
+        SyntaxFactory.CastExpression (ident targetType, expression) :> ExpressionSyntax
 
     // expression as targetType
     let ``as`` targetType expression = 
