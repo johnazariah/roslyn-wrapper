@@ -134,8 +134,8 @@ module Expressions =
         :> ExpressionSyntax
 
     // single line comment(s)
-    let ``//`` comment node =
-        comment
+    let ``//`` comments node =
+        comments
         |> List.map (fun l -> "// " + l)
         |> List.map SyntaxFactory.Comment
         |> node.WithLeadingTrivia
