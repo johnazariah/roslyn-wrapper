@@ -1,0 +1,1 @@
+C:\src\roslyn-wrapper\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe "-nologo" "-noshadow" "-labels" "C:\src\roslyn-wrapper\tests\BrightSword.RoslynWrapper.Tests\bin\Debug\BrightSword.RoslynWrapper.Tests.dll" "-xml:TestResults.xml" 

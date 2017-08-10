@@ -23,6 +23,12 @@ module LocalDeclaration =
         |> setVariableDeclarator localName localInitializer
         |> SyntaxFactory.LocalDeclarationStatement
 
+    let ``typed array`` localType localName localInitializer =
+        localType
+        |> (``array type`` >> SyntaxFactory.VariableDeclaration)
+        |> setVariableDeclarator localName localInitializer
+        |> SyntaxFactory.LocalDeclarationStatement
+
     let ``var`` localName localInitializer =
         ``typed var`` "var" localName (Some localInitializer)
     

@@ -9,7 +9,7 @@ module ArrayCreationTests =
 
     [<Test>]
     let ``array: new empty array``() =
-        let s = ``var`` "a" (``:=`` (``new array`` "int" [ ]))
+        let s = ``var`` "a" (``:=`` (``new array`` (Some "int") [ ]))
         let m = host_in_method "void" [s]
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -36,7 +36,7 @@ module ArrayCreationTests =
                 ``ident`` "b"
                 ``ident`` "c"
             ]
-        let s = ``var`` "a" (``:=`` (``new array`` "Test" elems))
+        let s = ``var`` "a" (``:=`` (``new array`` (Some "Test") elems))
         let m = host_in_method "void" [s]
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -63,7 +63,7 @@ module ArrayCreationTests =
                 ``literal`` 2
                 ``literal`` 3
             ]
-        let s = ``var`` "a" (``:=`` (``new array`` "int" elems))
+        let s = ``var`` "a" (``:=`` (``new array`` (Some "int") elems))
         let m = host_in_method "void" [s]
         let actual = to_class_members_code [m]
         let expected = @"namespace N
@@ -80,7 +80,58 @@ module ArrayCreationTests =
 }"
         are_equal expected actual
 
+    
+    [<Test>]
+    let ``array: typed array initialized with constants (short)``() =
         
+        let elems = 
+            [
+                ``literal`` 1
+                ``literal`` 2
+                ``literal`` 3
+            ]
+        let s = ``typed array`` "int" "a" (Some (``:=`` (``new array`` None elems)))
+        let m = host_in_method "void" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal void Host()
+        {
+            int[] a = { 1, 2, 3 };
+        }
+    }
+}"
+        are_equal expected actual
+        
+    [<Test>]
+    let ``array: typed array (short)``() =
+        
+        let elems = 
+            [
+                ``literal`` 1
+                ``literal`` 2
+                ``literal`` 3
+            ]
+        let s = ``typed array`` "int" "a" None
+        let m = host_in_method "void" [s]
+        let actual = to_class_members_code [m]
+        let expected = @"namespace N
+{
+    using System;
+
+    public class C
+    {
+        protected internal void Host()
+        {
+            int[] a;
+        }
+    }
+}"
+        are_equal expected actual
         
     [<Test>]
     let ``array: new array as argument``() =
@@ -91,7 +142,7 @@ module ArrayCreationTests =
                 ``literal`` 2
                 ``literal`` 3
             ]
-        let arg1 = (``new array`` "int" elems) :> ExpressionSyntax
+        let arg1 = (``new array`` (Some "int") elems)
         let arg2 = (``ident`` "p2") :> ExpressionSyntax
         let s =  statement (``invoke`` (``ident`` "Apply") ``(`` [arg1;arg2] ``)``)
         let m = host_in_method "void" [s]
