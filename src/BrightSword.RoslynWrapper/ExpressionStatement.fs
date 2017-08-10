@@ -42,7 +42,7 @@ module Expressions =
     let (<??>) left right =
         SyntaxFactory.BinaryExpression (SyntaxKind.CoalesceExpression, left, right)
         :> ExpressionSyntax
-
+        
     // left.right
     let (<|.|>) left right = 
         SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, left, right)
@@ -131,6 +131,18 @@ module Expressions =
     let ``))`` = None
     let ``((`` expr ``))`` = 
         SyntaxFactory.ParenthesizedExpression expr
+        :> ExpressionSyntax
+        
+    let private setArrayArguments (methodArguments : ArgumentSyntax seq) (ie : ElementAccessExpressionSyntax) =
+        methodArguments
+        |> (SyntaxFactory.SeparatedList >> SyntaxFactory.BracketedArgumentList)
+        |> ie.WithArgumentList
+        
+    // name[args]
+    let ``item`` name args =     
+        name
+        |> (``ident`` >> SyntaxFactory.ElementAccessExpression)
+        |> setArrayArguments (args |> Seq.map SyntaxFactory.Argument)
         :> ExpressionSyntax
 
 [<AutoOpen>]

@@ -36,8 +36,9 @@ module ArrayCreationTests =
                 ``ident`` "b"
                 ``ident`` "c"
             ]
-        let s = ``var`` "a" (``:=`` (``new array`` (Some "Test") elems))
-        let m = host_in_method "void" [s]
+        let s1 = ``var`` "x" (``:=`` (``new array`` (Some "Test") elems))
+        let s2 = ``var`` "y" (``:=`` (``item`` "x" [ ``literal`` 1 ]))
+        let m = host_in_method "void" [s1;s2]
         let actual = to_class_members_code [m]
         let expected = @"namespace N
 {
@@ -47,7 +48,8 @@ module ArrayCreationTests =
     {
         protected internal void Host()
         {
-            var a = new Test[] { a, b, c };
+            var x = new Test[] { a, b, c };
+            var y = x[1];
         }
     }
 }"
