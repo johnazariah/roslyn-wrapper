@@ -133,14 +133,11 @@ module Expressions =
         SyntaxFactory.ParenthesizedExpression expr
         :> ExpressionSyntax
 
-    // single line comment(s)
-    let ``//`` comments node =
-        comments
-        |> List.map  (fun l -> "// " + l)
-        |> List.map  SyntaxFactory.Comment
-        |> List.map  (fun c -> [c; (SyntaxFactory.EndOfLine "")])
-        |> List.fold (fun all syntax -> all @ syntax) []
+    // single line comment
+    let ``//`` comment node =
+        ("// " + comment |> SyntaxFactory.Comment) :: (List.ofSeq ((node :> SyntaxNode).GetLeadingTrivia()))
         |> node.WithLeadingTrivia
+
         
     let private setArrayArguments (methodArguments : ArgumentSyntax seq) (ie : ElementAccessExpressionSyntax) =
         methodArguments
