@@ -111,13 +111,6 @@ module ArrayCreationTests =
         
     [<Test>]
     let ``array: typed array (short)``() =
-        
-        let elems = 
-            [
-                ``literal`` 1
-                ``literal`` 2
-                ``literal`` 3
-            ]
         let s = ``typed array`` "int" "a" None
         let m = host_in_method "void" [s]
         let actual = to_class_members_code [m]
