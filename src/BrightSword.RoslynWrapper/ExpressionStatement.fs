@@ -138,6 +138,11 @@ module Expressions =
         ("// " + comment |> SyntaxFactory.Comment) :: (List.ofSeq ((node :> SyntaxNode).GetLeadingTrivia()))
         |> node.WithLeadingTrivia
 
+    // #line
+    let ``#line`` (lineNumber : int) (file : string) node =
+        SyntaxFactory.Trivia(SyntaxFactory.LineDirectiveTrivia(SyntaxFactory.Literal(lineNumber), SyntaxFactory.Literal(file), true))
+        :: (List.ofSeq ((node :> SyntaxNode).GetLeadingTrivia()))
+        |> node.WithLeadingTrivia
         
     let private setArrayArguments (methodArguments : ArgumentSyntax seq) (ie : ElementAccessExpressionSyntax) =
         methodArguments

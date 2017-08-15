@@ -151,8 +151,9 @@ module MethodTests =
                 ``{``
                     [
                         ``//`` "First line" <| (
-                            ``//`` "Second line" <|
-                            ``return`` None)
+                            ``//`` "Second line" <| (
+                                ``#line`` 5 "foo.cpp" <|
+                                ``return`` None))
                     ]
                 ``}``
 
@@ -167,6 +168,7 @@ module MethodTests =
         {
             // First line
             // Second line
+#line 5 ""foo.cpp""
             return;
         }
     }
