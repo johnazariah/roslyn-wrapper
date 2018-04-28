@@ -1,11 +1,11 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module LocalDeclarationTests =
-    [<Test>]
+    [<Fact>]
     let ``typed local variable: uninitialized`` () =
         let s = ``typed var`` "string" "name" None
         let m = host_in_method "void" [s]
@@ -24,7 +24,7 @@ module LocalDeclarationTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``typed local variable: initialized`` () =
         let e = ``:=`` <| literal "John"
         let s =  ``typed var`` "string" "name" <| Some e
@@ -44,7 +44,7 @@ module LocalDeclarationTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``untyped local variable: initialized`` () =
         let s = ``var`` "name" (``:=`` <| literal "John") 
         let m = host_in_method "void" [s]

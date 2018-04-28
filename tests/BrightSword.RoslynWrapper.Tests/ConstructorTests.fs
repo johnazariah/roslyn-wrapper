@@ -1,11 +1,11 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module ConstructorTests =    
-    [<Test>]
+    [<Fact>]
     let ``constructor: empty``() =
         let m = 
             ``constructor`` "C" ``(`` [] ``)`` 
@@ -29,7 +29,7 @@ module ConstructorTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``constructor: with parameter``() =
         let m = 
             ``constructor`` "C" ``(`` [ ("thing", (``type`` "object")) ] ``)`` 
@@ -53,7 +53,7 @@ module ConstructorTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``constructor: with parameter 2``() =
         let m = 
             ``constructor`` "C" ``(`` [ ("thing", (``type`` "object")); ("name", (``type`` "string")) ] ``)`` 
@@ -77,7 +77,7 @@ module ConstructorTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``constructor: calling base constructor``() =
         let m = 
             ``constructor`` "C" ``(`` [ ("thing", (``type`` "object")) ] ``)`` 
@@ -101,7 +101,7 @@ module ConstructorTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``constructor: calling base constructor 2``() =
         let m = 
             ``constructor`` "C" ``(`` [ ("thing", (``type`` "object")); ("name", (``type`` "string")) ] ``)`` 
@@ -125,7 +125,7 @@ module ConstructorTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``constructor: private``() =
         let m = 
             ``constructor`` "C" ``(`` [] ``)`` 

@@ -1,12 +1,12 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module NamespaceTests = 
 
-    [<Test>]
+    [<Fact>]
     let ``namespace: empty``() =
         let n = 
             ``namespace`` "Foo"
@@ -21,7 +21,7 @@ module NamespaceTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``namespace: with usings``() =
         let n = 
             ``namespace`` "Foo"
@@ -37,7 +37,7 @@ module NamespaceTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``namespace: with usings and classes``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``

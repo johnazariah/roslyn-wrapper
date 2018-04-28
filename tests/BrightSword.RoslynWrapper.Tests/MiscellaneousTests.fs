@@ -1,11 +1,11 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module MiscellaneousTests =
-    [<Test>]
+    [<Fact>]
     let ``type name with 1 part``() =
         let t = ``type`` "string"
         let s = ``new`` t ``(`` [ ] ``)``
@@ -22,7 +22,7 @@ module MiscellaneousTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``type name with 2 parts``() =
         let t = ``type`` ["System"; "String"]
         let s = ``new`` t ``(`` [ ] ``)``
@@ -39,14 +39,13 @@ module MiscellaneousTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``type name with 0 parts``() =
-        let f = fun () -> ``type`` []|> ignore
-        let exn = Assert.Throws<System.Exception>(TestDelegate f)
-        Assert.AreEqual ("cannot get qualified name of empty list", exn.Message)
+        match Record.Exception(fun () -> ``type`` []|> ignore) with
+        | exn when exn = null -> Assert.False (true, "exception not thrown as expected")
+        | exn -> Assert.Equal ("cannot get qualified name of empty list", exn.Message)
 
-
-    [<Test>]
+    [<Fact>]
     let ``type name with >2 parts``() =
         let t = ``type`` ["System"; "Collections"; "Generic"; "List<T>"]
         let s = ``new`` t ``(`` [ ] ``)``

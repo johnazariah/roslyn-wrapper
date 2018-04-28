@@ -1,11 +1,11 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module InterfaceTests =
-    [<Test>]
+    [<Fact>]
     let ``interface: empty``() =
         let i =
             ``interface`` "I" ``<<`` [] ``>>``
@@ -25,7 +25,7 @@ module InterfaceTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``interface: generic``() =
         let i =
             ``interface`` "I" ``<<`` [ "T" ] ``>>``
@@ -45,7 +45,7 @@ module InterfaceTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``interface: generic 2``() =
         let i =
             ``interface`` "I" ``<<`` [ "R"; "S" ] ``>>``
@@ -65,7 +65,7 @@ module InterfaceTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``interface: base interfaces``() =
         let i =
             ``interface`` "I" ``<<`` [] ``>>``
@@ -85,7 +85,7 @@ module InterfaceTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``interface: private``() =
         let i =
             ``interface`` "I" ``<<`` [] ``>>``
@@ -105,7 +105,7 @@ module InterfaceTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``interface: static``() =
         let i =
             ``interface`` "I" ``<<`` [] ``>>``
@@ -125,7 +125,7 @@ module InterfaceTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``interface: internal``() =
         let i =
             ``interface`` "I" ``<<`` [] ``>>``
@@ -145,7 +145,7 @@ module InterfaceTests =
 }"
         are_equal expected actual
         
-    [<Test>]
+    [<Fact>]
     let ``interface: partial``() =
         let i =
             ``interface`` "I" ``<<`` [] ``>>``
@@ -165,7 +165,7 @@ module InterfaceTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``interface: private static partial``() =
         let i =
             ``interface`` "I" ``<<`` [] ``>>``

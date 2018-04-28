@@ -1,11 +1,11 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module EqualityOperatorTests =
-    [<Test>]
+    [<Fact>]
     let ``equality operator: ==`` () =
         let m = 
             ``operator ==`` ("left", "right", ``type`` "string")
@@ -23,7 +23,7 @@ module EqualityOperatorTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``equality operator: !=`` () =
         let m = 
             ``operator !=`` ("left", "right", ``type`` "string")

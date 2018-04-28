@@ -1,12 +1,12 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module AutoPropertyTests =
 
-    [<Test>]
+    [<Fact>]
     let ``property: read``() =
         let m = 
             ``property-get`` "string" "Name" [ ``public`` ] 
@@ -34,7 +34,7 @@ module AutoPropertyTests =
         are_equal expected actual
 
         
-    [<Test>]
+    [<Fact>]
     let ``property: readwrite``() =
         let m = 
             ``property`` "string" "Name" [ ``public`` ] 
@@ -70,7 +70,7 @@ module AutoPropertyTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``auto property: read-only``() =
         let m = ``propg`` "string" "Name" [ ``public`` ]
 
@@ -89,7 +89,7 @@ module AutoPropertyTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``auto property: read-write``() =
         let m = ``prop`` "string" "Name" [ ``public`` ]
 

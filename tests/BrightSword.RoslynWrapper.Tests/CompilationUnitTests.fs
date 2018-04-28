@@ -1,18 +1,18 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module CompilationUnitTests =
-    [<Test>]
+    [<Fact>]
     let ``compilation-unit : empty``() =
         let input = ``compilation unit`` [ ]
         let actual = generateCodeToString input
         let expected = @""
         are_equal expected actual
                  
-    [<Test>]
+    [<Fact>]
     let ``compilation-unit : single namespace``() =
         let n = 
             ``namespace`` "Foo"

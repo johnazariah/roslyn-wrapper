@@ -1,11 +1,11 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module FieldTests =
-    [<Test>]
+    [<Fact>]
     let ``field: uninitialized`` () =
         let m = 
             ``field`` "string" "m_Name" 
@@ -24,7 +24,7 @@ module FieldTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``field: initialized`` () =
         let e = ``:=`` <| literal "John"
         let m = 

@@ -1,13 +1,13 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module ArrayCreationTests =
     open Microsoft.CodeAnalysis.CSharp.Syntax
 
-    [<Test>]
+    [<Fact>]
     let ``array: new empty array``() =
         let s = ``var`` "a" (``:=`` (``new array`` "int" [ ]))
         let m = host_in_method "void" [s]
@@ -27,7 +27,7 @@ module ArrayCreationTests =
         are_equal expected actual
 
         
-    [<Test>]
+    [<Fact>]
     let ``array: new initialized array with ids``() =
         
         let elems = 
@@ -54,7 +54,7 @@ module ArrayCreationTests =
         are_equal expected actual
 
         
-    [<Test>]
+    [<Fact>]
     let ``array: new initialized array with constants``() =
         
         let elems = 
@@ -82,7 +82,7 @@ module ArrayCreationTests =
 
         
         
-    [<Test>]
+    [<Fact>]
     let ``array: new array as argument``() =
         
         let elems = 

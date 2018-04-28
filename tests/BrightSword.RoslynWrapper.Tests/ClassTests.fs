@@ -1,11 +1,11 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module ClassTests =
-    [<Test>]
+    [<Fact>]
     let ``class: empty``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``
@@ -25,7 +25,7 @@ module ClassTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``class: base class``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``
@@ -46,7 +46,7 @@ module ClassTests =
         are_equal expected actual
 
 
-    [<Test>]
+    [<Fact>]
     let ``class: generic``() =
         let c =
             ``class`` "C" ``<<`` [ "T" ] ``>>``
@@ -66,7 +66,7 @@ module ClassTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``class: generic 2``() =
         let c =
             ``class`` "C" ``<<`` [ "R"; "S" ] ``>>``
@@ -86,7 +86,7 @@ module ClassTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``class: interfaces``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``
@@ -106,7 +106,7 @@ module ClassTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``class: base and interfaces``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``
@@ -126,7 +126,7 @@ module ClassTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``class: private``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``
@@ -146,7 +146,7 @@ module ClassTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``class: static``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``
@@ -166,7 +166,7 @@ module ClassTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``class: internal``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``
@@ -186,7 +186,7 @@ module ClassTests =
 }"
         are_equal expected actual
         
-    [<Test>]
+    [<Fact>]
     let ``class: partial``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``
@@ -206,7 +206,7 @@ module ClassTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``class: private static partial``() =
         let c =
             ``class`` "C" ``<<`` [] ``>>``

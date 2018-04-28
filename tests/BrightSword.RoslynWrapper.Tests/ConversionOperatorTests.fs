@@ -1,11 +1,11 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module ConversionOperatorTests =
-    [<Test>]
+    [<Fact>]
     let ``conversion operator: implicit`` () =
         let m = 
             ``implicit operator`` "string" ``(`` (``type`` "C") ``)`` 
@@ -24,7 +24,7 @@ module ConversionOperatorTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``conversion operator: implicit with forced static`` () =
         let m = 
             ``implicit operator`` "string" ``(`` (``type`` "C") ``)`` 
@@ -43,7 +43,7 @@ module ConversionOperatorTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``conversion operator: explicit`` () =
         let m = 
             ``explicit operator`` "string" ``(`` (``type`` "C") ``)`` 
@@ -63,7 +63,7 @@ module ConversionOperatorTests =
 
 
 
-    [<Test>]
+    [<Fact>]
     let ``conversion operator: explicit from-string`` () =
         let m = 
             ``explicit operator`` "C" ``(`` (``type`` "string") ``)`` 

@@ -1,6 +1,6 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 open System.Text.RegularExpressions
 
 open BrightSword.RoslynWrapper
@@ -10,7 +10,7 @@ module internal Common =
     let private normalizeNewLine s = Regex.Replace(s, "(?<!\r)\n", "\r\n")
     
     let are_equal (expected : string) (actual : string) = 
-        (expected, actual) |> (mapTuple2 normalizeNewLine >> Assert.AreEqual)
+        (expected, actual) |> (mapTuple2 normalizeNewLine >> Assert.Equal)
 
     let to_namespace_code n = 
         let cu = ``compilation unit`` [ n ]

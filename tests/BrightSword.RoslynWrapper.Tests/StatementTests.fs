@@ -1,11 +1,11 @@
 ﻿namespace BrightSword.RoslynWrapper.Tests
 
-open NUnit.Framework
+open Xunit
 
 open BrightSword.RoslynWrapper
 
 module StatementTests = 
-    [<Test>]
+    [<Fact>]
     let ``expression: new``() =
         let t = ``generic type`` "List" ``<<`` [ "int" ] ``>>``
         let s = ``new`` t ``(`` [ ] ``)``
@@ -22,7 +22,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: new() with args``() =
         let s = ``new`` (``type`` ["System"; "String" ]) ``(`` [ literal "A" ] ``)``
         let m = return_from_arrow_method "String" s
@@ -38,7 +38,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``statement: empty return``() =
         let s = ``return`` None
         let m = host_in_method "void" [s]
@@ -58,7 +58,7 @@ module StatementTests =
         are_equal expected actual
 
 
-    [<Test>]
+    [<Fact>]
     let ``statement: return value``() =
         let s = ``return`` (Some <| literal 42)
         let m = host_in_method "int" [s]
@@ -77,7 +77,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: assignment``() =
         let target = ident "a"
         let source = literal 42
@@ -99,7 +99,7 @@ module StatementTests =
         are_equal expected actual
 
 
-    [<Test>]
+    [<Fact>]
     let ``statement: empty throw``() =
         let s = ``throw`` None
         let m = host_in_method "void" [s]
@@ -119,7 +119,7 @@ module StatementTests =
         are_equal expected actual
 
 
-    [<Test>]
+    [<Fact>]
     let ``statement: throw exception``() =
         let newException = ``new`` (``type`` ["System"; "Exception"]) ``(`` [] ``)``
         let s = ``throw`` <| Some newException
@@ -139,7 +139,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: cast``() =
         let expr = ``cast`` "float" (literal 42)
         let s = ((ident "a") <-- expr) |> statement 
@@ -159,7 +159,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: as``() =
         let expr = ``as`` "float" (ident "b")
         let s = ((ident "a") <-- expr) |> statement 
@@ -179,7 +179,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: |~> ``() =
         let expr = (ident "b") |~> "float" 
         let s = ((ident "a") <-- expr) |> statement 
@@ -199,7 +199,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: is``() =
         let expr = ``is`` "float" (ident "b")
         let s = ((ident "a") <-- expr) |> statement 
@@ -219,7 +219,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: ==``() =
         let expr = (ident "b") <==> (literal 12)
         let s = ((ident "a") <-- expr) |> statement 
@@ -239,7 +239,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: &&``() =
         let expr = (ident "b") <&&> (ident "c")
         let s = ((ident "a") <-- expr) |> statement
@@ -259,7 +259,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: ||``() =
         let expr = (ident "b") <||> (ident "c")
         let s = ((ident "a") <-- expr) |> statement
@@ -279,7 +279,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: !=``() =
         let expr = (ident "b") <!=> (literal 12)
         let s = ((ident "a") <-- expr) |> statement 
@@ -299,7 +299,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: ^``() =
         let expr = (ident "b") <^> (literal 12)
         let s = ((ident "a") <-- expr) |> statement 
@@ -319,7 +319,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: ??``() =
         let expr = (ident "b") <??> ``false``
         let s = ((ident "a") <-- expr) |> statement 
@@ -339,7 +339,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: paranthesize``() =
         let expr = ``((`` ((ident "b") <^> (literal 12)) ``))``
         let s = ((ident "a") <-- expr) |> statement 
@@ -359,7 +359,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: !``() =
         let expr = ! ((ident "b") <^> (literal 12))
         let s = ((ident "a") <-- expr) |> statement 
@@ -379,7 +379,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: member.access``() =
         let ma = (ident "System") <|.|> (ident "Console") <.> (ident "WriteLine", [ literal "Hello, World!" ])
         let m = host_in_method "int" [ statement ma ]
@@ -398,7 +398,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: member?.access``() =
         let ma = (ident "System") <|?.|> (ident "Console") <?.> (ident "WriteLine", [ literal "Hello, World!" ])
         let m = host_in_method "int" [ statement ma ]
@@ -417,7 +417,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: async - await``() =
         let ma = (ident "System") <|.|> (ident "Console") <.> (ident "WriteLine", [ literal "Hello, World!" ])
         let s = ``await`` ma |> statement
@@ -442,7 +442,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: member.access<generic>``() =
         let gen1 = ``generic type`` "Task" ``<<`` [ "int" ] ``>>``
         let gen2 = ``generic type`` "Run" ``<<`` [ "string" ] ``>>``
@@ -463,7 +463,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: literals``() =
         let ss = 
             [
@@ -509,7 +509,7 @@ module StatementTests =
 }"
         are_equal expected actual
 
-    [<Test>]
+    [<Fact>]
     let ``expression: single param lambda``() =
         let expr = ``as`` "float" (ident "b")
         let s = ``_ =>`` "b" expr 
@@ -527,7 +527,7 @@ module StatementTests =
         are_equal expected actual
 
 
-    [<Test>]
+    [<Fact>]
     let ``expression: multi param lambda``() =
         let expr = ``as`` "float" (ident "b")
         let s = ``() =>`` ["a"; "b"] expr 
@@ -544,7 +544,7 @@ module StatementTests =
 }"
         are_equal expected actual
         
-    [<Test>]
+    [<Fact>]
     let ``expression: numerics``() =
         let ss = 
             [
