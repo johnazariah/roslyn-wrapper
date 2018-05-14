@@ -67,3 +67,7 @@
 * Initial set of code, tests & docs
 * Changed name from fsharp-project-scaffold to BrightSword.RoslynWrapper
 * Initial release
+
+
+#### 1.0.2 - May 14 2018 
+* Moved to target .net 4.6.1 and .net core app 2.0 

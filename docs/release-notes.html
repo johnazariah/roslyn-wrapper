@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>release-notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="F# wrapper for Roslyn CodeGeneration API"/>
+    <meta name="author" content="John Azariah"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/BrightSword.RoslynWrapper/content/style.css" />
+    <script type="text/javascript" src="/BrightSword.RoslynWrapper/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="https://github.com/johnazariah/BrightSword.RoslynWrapper">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/BrightSword.RoslynWrapper/index.html">BrightSword.RoslynWrapper</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h4><a name="1-0-3-January-7-2017" class="anchor" href="#1-0-3-January-7-2017">1.0.3 - January 7 2017</a></h4>
+<ul>
+<li>Strong-Named</li>
+</ul>
+<h4><a name="1-0-2-December-31-2016" class="anchor" href="#1-0-2-December-31-2016">1.0.2 - December 31 2016</a></h4>
+<ul>
+<li>
+Clean-up and Document
+<ul>
+<li>
+The following inline functions generate expressions as follows:
+<ul>
+<li><&&> - logical AND</li>
+<li><||> - logical OR</li>
+<li><^> - exclusive OR</li>
+<li><==> - equality</li>
+<li><!=> - inequality</li>
+<li>! - logical NOT</li>
+<li><|.|> - dot access to fields</li>
+<li><.> - dot access to methods</li>
+<li><\??> - null coalesce</li>
+<li><|?.|> - conditional dot access to fields</li>
+<li><\?.> - conditional dot access to methods</li>
+<li><p>|~&gt; - inline form of <code>as</code></p></li>
+</ul>
+</li>
+<li>
+The following functions generate expressions and statements as follows:
+<ul>
+<li><code>as</code> ... : ( <em> as </em> )</li>
+<li><code>is</code> ... : ( <em> is </em> )</li>
+<li><code>cast</code> ... : (cast) ...</li>
+<li><code>await</code> ... : await</li>
+<li><code>new</code> ... : new ...</li>
+<li><code>=&gt;</code> ... : arrow expression</li>
+<li><code>:=</code> ... : assignment expression</li>
+<li><code>return</code> ... : return ...</li>
+<li><code>throw</code> ... : throw ...</li>
+<li><code>_ =&gt;</code> ... : lambda expression with one parameter</li>
+<li><code>() =&gt;</code> ... : lambda expression with multiple parameters</li>
+<li>ident ... : define an identifier</li>
+<li><p><code>type</code> ... : define a type</p></li>
+</ul>
+</li>
+<li>
+The following functions generate syntax declarations - along with associated keywords
+<ul>
+<li><code>namespace</code> ... : namespace</li>
+<li><code>using</code> ... : using</li>
+<li><code>interface</code> ... : interface</li>
+<li><code>class</code> ... : class</li>
+<li><code>constructor</code> ... : constructor</li>
+<li><code>field</code> ... : field</li>
+<li><code>method</code> ... : method</li>
+<li><code>prop</code> ... : read-write property</li>
+<li><code>propg</code> ... : read-only property</li>
+<li><code>var</code> ... : local variable declaration</li>
+<li><code>operator ==</code> : equality operator</li>
+<li><code>operator !=</code> : inequality operator</li>
+<li><code>explicit operator</code> : explicit conversion operator</li>
+<li><p><code>implicit operator</code> : implicit conversion operator</p></li>
+</ul>
+</li>
+<li>
+The following literal types are supported
+<ul>
+<li>string</li>
+<li>char</li>
+<li>int</li>
+<li>long</li>
+<li>double</li>
+<li>float</li>
+<li>decimal</li>
+<li>uint32</li>
+<li>uint64</li>
+<li><code>null</code> : literal null</li>
+<li><code>false</code> : literal false</li>
+<li><code>true</code> : literal true</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4><a name="1-0-1-December-31-2016" class="anchor" href="#1-0-1-December-31-2016">1.0.1 - December 31 2016</a></h4>
+<ul>
+<li>Added more expressions</li>
+<li>Initial set of code, tests &amp; docs</li>
+<li>Changed name from fsharp-project-scaffold to BrightSword.RoslynWrapper</li>
+<li>Initial release</li>
+</ul>
+<h4><a name="1-0-2-May-14-2018" class="anchor" href="#1-0-2-May-14-2018">1.0.2 - May 14 2018</a></h4>
+<ul>
+<li>Moved to target .net 4.6.1 and .net core app 2.0</li>
+</ul>
+
+
+        </div>
+        <div class="span3">
+          <img src="/BrightSword.RoslynWrapper/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">BrightSword.RoslynWrapper</li>
+            <li><a href="/BrightSword.RoslynWrapper/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/BrightSword.RoslynWrapper">Get Library via NuGet</a></li>
+            <li><a href="https://github.com/johnazariah/BrightSword.RoslynWrapper">Source Code on GitHub</a></li>
+            <li><a href="/BrightSword.RoslynWrapper/license.html">License</a></li>
+            <li><a href="/BrightSword.RoslynWrapper/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/BrightSword.RoslynWrapper/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/BrightSword.RoslynWrapper/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/johnazariah/BrightSword.RoslynWrapper"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

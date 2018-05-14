@@ -1,23 +1,17 @@
+framework: auto-detect
+
 source https://nuget.org/api/v2
+source https://ci.appveyor.com/nuget/fsharp-formatting
 
-nuget FSharp.Core redirects: force
-nuget Microsoft.CodeAnalysis.Analyzers redirects: force
-nuget Microsoft.CodeAnalysis.Common redirects: force
-nuget Microsoft.CodeAnalysis.CSharp redirects: force
-nuget Microsoft.CodeAnalysis.CSharp.Workspaces redirects: force
-nuget Microsoft.CodeAnalysis.Workspaces.Common redirects: force
+nuget FSharp.Core
+nuget Argu
 
-group Build
-  source https://nuget.org/api/v2
-  
-  nuget SourceLink.Fake
-  nuget FAKE
-  nuget FSharp.Formatting
-  
-  github fsharp/FAKE modules/Octokit/Octokit.fsx
+nuget FAKE
+nuget FSharp.Formatting 3.0.0-beta08 beta
 
-group Test
-  source https://nuget.org/api/v2
-  
-  nuget NUnit ~> 2
-  nuget NUnit.Runners ~> 2
+github fsharp/FAKE modules/Octokit/Octokit.fsx
+
+nuget Expecto
+nuget Expecto.BenchmarkDotNet
+nuget Expecto.FsCheck
+nuget Expecto.VisualStudio.TestAdapter version_in_path: true

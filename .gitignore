@@ -172,22 +172,39 @@ packages/
 # Generated documentation folder
 docs/output/
 
-# Temp folder used for publishing docs
-temp/
-
 # Test results produced by build
 TestResults.xml
 
-# Nuget outputs
-nuget/*.nupkg
+# release secrets, etc.
 release.cmd
 release.sh
 localpackages/
-paket-files
 *.orig
-.paket/paket.exe
-docs/content/license.md
-docs/content/release-notes.md
+
+# Doc Source generated
+docsrc/content/license.md
+docsrc/content/release-notes.md
+docsrc/tools/FSharp.Formatting.svclog
+
+# FAKE cruft
 .fake
-docs/tools/FSharp.Formatting.svclog
-/.paket/paket.bootstrapper.exe
+
+# paket cruft
+paket-files
+.paket
+
+# Temp folder used for publishing docs
+temp/
+
+# jackfoxy stuff, possibly secrets
+**/load-references-debug.fsx
+**/load-references-release.fsx
+**/load-project-release.fsx
+**/load-project-debug.fsx
+**/connectionStrings.config
+**/connectionStrings.*
+**/appSettings.config 
+**/appSettings.*
+
+# Nuget outputs
+nuget/*.nupkg

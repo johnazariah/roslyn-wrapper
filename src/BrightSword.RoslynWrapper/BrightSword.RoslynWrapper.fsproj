@@ -1,6 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
+    <RootNamespace>BrightSword.RoslynWrapper</RootNamespace>
+    <AssemblyName>BrightSword.RoslynWrapper</AssemblyName>
+    <Name>BrightSword.RoslynWrapper</Name>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -29,8 +36,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="2.8.0-beta4" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0-preview2-26406-04" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="2.8.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0-rc1" />
   </ItemGroup>
   
   <ItemGroup>

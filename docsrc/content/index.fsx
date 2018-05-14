@@ -1,7 +1,7 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../bin"
+#I "../../bin/BrightSword.RoslynWrapper"
 
 (**
 BrightSword.RoslynWrapper
@@ -13,7 +13,7 @@ Documentation
   <div class="span1"></div>
   <div class="span6">
     <div class="well well-small" id="nuget">
-      The  library can be <a href="https://nuget.org/packages/BrightSword.RoslynWrapper">installed from NuGet</a>:
+      The BrightSword.RoslynWrapper library can be <a href="https://nuget.org/packages/BrightSword.RoslynWrapper">installed from NuGet</a>:
       <pre>PM> Install-Package BrightSword.RoslynWrapper</pre>
     </div>
   </div>
